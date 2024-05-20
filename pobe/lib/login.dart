@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pobe/forgotpass.dart';
 import 'package:pobe/home.dart';
-import 'package:pobe/registration.dart';
+import 'package:pobe/signup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
