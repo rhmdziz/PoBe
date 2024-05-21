@@ -42,7 +42,11 @@ class _RegistState extends State<Regist> {
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 30),
         child: Column(
           children: [
-            Image.asset('assets/logo.png'),
+            Image.asset(
+              'assets/logo.png',
+              width: 175,
+              height: 175,
+            ),
             const SizedBox(
               height: 30,
             ),
@@ -147,7 +151,11 @@ class _RegistState extends State<Regist> {
               ),
               child: const Text(
                 'Register a New Account',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Lexend',
+                  fontSize: 16,
+                ),
               ),
             ),
             const SizedBox(

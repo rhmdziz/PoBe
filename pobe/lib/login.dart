@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pobe/forgotpass.dart';
+import 'package:pobe/forgot_pass.dart';
 import 'package:pobe/home.dart';
 import 'package:pobe/signup.dart';
 
@@ -104,12 +104,9 @@ class _LoginState extends State<Login> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomePage(),
-                    ),
-                  );
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (_) => const HomePage(),
+                  ));
                 },
                 style: ButtonStyle(
                   backgroundColor: const MaterialStatePropertyAll(
@@ -121,7 +118,11 @@ class _LoginState extends State<Login> {
                 ),
                 child: const Text(
                   'Login',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: 'Lexend',
+                  ),
                 ),
               ),
               const SizedBox(

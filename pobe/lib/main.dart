@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pobe/login.dart';
 import 'package:pobe/splash/welcome.dart';
 
 void main() {
