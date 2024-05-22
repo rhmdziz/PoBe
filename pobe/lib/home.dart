@@ -10,6 +10,36 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+        appBar: AppBar(
+      leading: IconButton(
+        icon: const Icon(
+          Icons.account_circle_outlined,
+          color: Color.fromRGBO(31, 54, 113, 1),
+          size: 35,
+        ),
+        onPressed: () {
+          // Handle profile icon press
+        },
+      ),
+      title: Center(
+        child: Image.asset(
+          'assets/logo.png', // Path to your logo asset
+          height: 50,
+        ),
+      ),
+      actions: [
+        IconButton(
+          icon: const Icon(
+            Icons.notifications_outlined,
+            color: Color.fromRGBO(31, 54, 113, 1),
+            size: 35,
+          ),
+          onPressed: () {
+            // Handle notification icon press
+          },
+        ),
+      ],
+    ));
   }
 }

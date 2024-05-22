@@ -8,6 +8,9 @@ class InsertOtp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String displayEmailOrUsername =
+        emailOrUsername.isNotEmpty ? emailOrUsername : "aziz@gmail.com";
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
@@ -30,7 +33,7 @@ class InsertOtp extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                'We have sent OTP code to $emailOrUsername',
+                'We have sent OTP code to $displayEmailOrUsername',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 14,
