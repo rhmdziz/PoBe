@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:pobe/splash/success_reg.dart';
+import 'package:pobe/splash/splash_forgot_pass.dart';
 
-class Regist extends StatefulWidget {
-  const Regist({super.key});
+class NewPass extends StatefulWidget {
+  const NewPass({super.key});
 
   @override
-  State<Regist> createState() => _RegistState();
+  State<NewPass> createState() => _NewPassState();
 }
 
-class _RegistState extends State<Regist> {
+class _NewPassState extends State<NewPass> {
   bool _obscureText = true;
 
   void _togglePasswordVisibility() {
@@ -21,30 +21,21 @@ class _RegistState extends State<Regist> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text(
-          'Back',
-          style: TextStyle(
-              color: Color.fromRGBO(31, 54, 113, 1),
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-              fontFamily: 'Lexend'),
-        ),
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios),
-          color: const Color.fromRGBO(31, 54, 113, 1),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 30),
         child: Column(
           children: [
+            const SizedBox(
+              height: 50,
+            ),
             Image.asset(
               'assets/logo.png',
-              width: 175,
-              height: 175,
+              width: 125,
+              height: 125,
+            ),
+            const Text(
+              'Enter your new password',
+              style: TextStyle(fontFamily: 'Lexend', fontSize: 22),
             ),
             const SizedBox(
               height: 30,
@@ -82,7 +73,7 @@ class _RegistState extends State<Regist> {
                   fontWeight: FontWeight.w300,
                   fontFamily: 'Lexend',
                 ),
-                labelText: 'Password',
+                labelText: 'New Password',
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
                 border: const OutlineInputBorder(
@@ -112,7 +103,7 @@ class _RegistState extends State<Regist> {
                   fontWeight: FontWeight.w300,
                   fontFamily: 'Lexend',
                 ),
-                labelText: 'Confirm Password',
+                labelText: 'Confirm New Password',
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
                 border: const OutlineInputBorder(
@@ -136,7 +127,7 @@ class _RegistState extends State<Regist> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SplashScreenSignUp(),
+                    builder: (context) => const SplashScreenForgotPass(),
                   ),
                 );
               },
@@ -149,67 +140,12 @@ class _RegistState extends State<Regist> {
                     const MaterialStatePropertyAll(Size(double.infinity, 50)),
               ),
               child: const Text(
-                'Register a New Account',
+                'Confirm',
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Lexend',
                   fontSize: 16,
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Row(
-              children: [
-                Expanded(
-                  child: Divider(
-                    color: Colors.black,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(
-                    'or',
-                    style: TextStyle(fontFamily: 'Lexend'),
-                  ),
-                ),
-                Expanded(
-                  child: Divider(
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            ElevatedButton(
-              onPressed: null,
-              style: ButtonStyle(
-                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10))),
-                  minimumSize:
-                      const MaterialStatePropertyAll(Size(double.infinity, 50)),
-                  backgroundColor: const MaterialStatePropertyAll(
-                      Color.fromRGBO(0, 0, 0, 0.09))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image.asset(
-                    'assets/logo_google.png', // Ganti dengan path gambar logo Google Anda
-                    width: 24, // Sesuaikan dengan ukuran logo Google
-                    height: 24, // Sesuaikan dengan ukuran logo Google
-                  ),
-                  const SizedBox(width: 8), // Jarak antara logo dan teks
-                  const Text(
-                    'Continue with Google Account',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Lexend',
-                    ),
-                  ),
-                ],
               ),
             ),
           ],

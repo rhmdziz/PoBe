@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pobe/splash/splash_forgot_pass.dart';
+import 'package:pobe/insert_otp.dart';
 
 class ForgotPass extends StatelessWidget {
-  const ForgotPass({super.key});
+  ForgotPass({super.key});
+
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +47,9 @@ class ForgotPass extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _emailController,
+              decoration: const InputDecoration(
                 filled: true,
                 fillColor: Color.fromRGBO(80, 137, 198, 0.22),
                 labelStyle: TextStyle(
@@ -72,7 +75,9 @@ class ForgotPass extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SplashScreenForgotPass(),
+                    builder: (context) => InsertOtp(
+                      emailOrUsername: _emailController.text,
+                    ),
                   ),
                 );
               },
