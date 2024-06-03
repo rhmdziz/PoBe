@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pobe/edit_profile.dart';
 import 'package:pobe/help.dart';
+import 'package:pobe/login.dart';
 import 'package:pobe/setting.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -105,7 +107,14 @@ class ProfilePage extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         alignment: Alignment.centerLeft,
                         child: TextButton(
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) => const EditProfilePage()),
+                              ),
+                            );
+                          },
                           child: Row(
                             children: [
                               Image.asset('assets/profile/edit.png'),
@@ -199,7 +208,12 @@ class ProfilePage extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         alignment: Alignment.centerLeft,
                         child: TextButton(
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                              builder: (_) => const Login(),
+                            ));
+                          },
                           child: Row(
                             children: [
                               Image.asset('assets/profile/keluar.png'),
