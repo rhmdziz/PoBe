@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pobe/help.dart';
+import 'package:pobe/setting.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -7,38 +8,50 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Back',
-          style: TextStyle(
-            color: Color.fromRGBO(31, 54, 113, 1),
-            fontSize: 18,
-            fontFamily: 'Lexend',
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios),
-          color: const Color.fromRGBO(31, 54, 113, 1),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: ((context) => const HelpPage())),
-              );
-            },
-            icon: const Icon(
-              Icons.help_rounded,
-              color: Color.fromRGBO(31, 54, 113, 1),
-            ),
-          )
-        ],
-      ),
       body: Column(
         children: [
+          const SizedBox(
+            height: 40,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.arrow_back_ios),
+                      color: const Color.fromRGBO(31, 54, 113, 1),
+                    ),
+                    const Text(
+                      'Back',
+                      style: TextStyle(
+                        color: Color.fromRGBO(31, 54, 113, 1),
+                        fontSize: 18,
+                        fontFamily: 'Lexend',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const HelpPage())),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.help_rounded,
+                    color: Color.fromRGBO(31, 54, 113, 1),
+                  ),
+                )
+              ],
+            ),
+          ),
           Column(
             children: [
               const SizedBox(
@@ -120,7 +133,14 @@ class ProfilePage extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(vertical: 2.5),
                         alignment: Alignment.centerLeft,
                         child: TextButton(
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) => const SettingPage()),
+                              ),
+                            );
+                          },
                           child: Row(
                             children: [
                               Image.asset('assets/profile/setting.png'),
