@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pobe/profile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -35,10 +36,19 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Icon(
-                        Icons.account_circle_outlined,
-                        color: Color.fromRGBO(31, 54, 113, 1),
-                        size: 35,
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => const ProfilePage())),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.account_circle_outlined,
+                          color: Color.fromRGBO(31, 54, 113, 1),
+                          size: 35,
+                        ),
                       ),
                       Image.asset(
                         'assets/logo.png', // Path to your logo asset
@@ -62,15 +72,30 @@ class _HomePageState extends State<HomePage> {
                       children: <Widget>[
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.asset('assets/1.png', height: 200),
+                          child: Image.asset(
+                            'assets/1.png',
+                            width: MediaQuery.of(context).size.width * 0.84,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              'assets/2.png',
+                              width: MediaQuery.of(context).size.width * 0.82,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.asset('assets/2.png', height: 200),
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset('assets/3.png', height: 200),
+                          child: Image.asset(
+                            'assets/3.png',
+                            width: MediaQuery.of(context).size.width * 0.84,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ],
                     ),

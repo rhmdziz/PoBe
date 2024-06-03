@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pobe/splash/welcome.dart';
+import 'package:pobe/term_and_condition.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
             seedColor: const Color.fromRGBO(31, 54, 113, 1)),
         useMaterial3: true,
       ),
+      // home: const TermPage(),
       home: const SplashScreenWelcome(),
     );
   }

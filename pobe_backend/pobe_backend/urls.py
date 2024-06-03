@@ -21,6 +21,7 @@ from rest_framework import routers, serializers, viewsets
 from drf import models
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework.authtoken import views
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -29,7 +30,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
 
 class FoodSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -109,6 +109,8 @@ router.register(r'commentnewss', CommentNewsViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('api/', include('drf.urls', namespace='drf')),
+    path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 
