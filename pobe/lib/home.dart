@@ -11,35 +11,391 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-      leading: IconButton(
-        icon: const Icon(
-          Icons.account_circle_outlined,
-          color: Color.fromRGBO(31, 54, 113, 1),
-          size: 35,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Positioned(
+              left: -150,
+              top: -150,
+              child: Image.asset('assets/stack_elemen.png'),
+            ),
+            Positioned(
+              right: -200,
+              top: 500,
+              child: Image.asset('assets/stack_elemen.png'),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Icon(
+                        Icons.account_circle_outlined,
+                        color: Color.fromRGBO(31, 54, 113, 1),
+                        size: 35,
+                      ),
+                      Image.asset(
+                        'assets/logo.png', // Path to your logo asset
+                        height: 50,
+                      ),
+                      const Icon(
+                        Icons.notifications_outlined,
+                        color: Color.fromRGBO(31, 54, 113, 1),
+                        size: 35,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: 195,
+                    width: double.infinity,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset('assets/1.png', height: 200),
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset('assets/2.png', height: 200),
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset('assets/3.png', height: 200),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Text(
+                    "Discover BSD",
+                    style: TextStyle(
+                      color: Color.fromRGBO(31, 54, 113, 1),
+                      fontSize: 16,
+                      fontFamily: 'Lexend',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const Text(
+                    "l Category",
+                    style: TextStyle(
+                      color: Color.fromRGBO(31, 54, 113, 1),
+                      fontSize: 16,
+                      fontFamily: 'Lexend',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  // CATEGORY
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            height: 120,
+                            width: 95,
+                            decoration: BoxDecoration(
+                                color: const Color.fromRGBO(140, 201, 246, 1),
+                                borderRadius: BorderRadius.circular(7.5)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 20),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(209, 235, 254, 1),
+                                    borderRadius: BorderRadius.circular(7.5),
+                                  ),
+                                  child:
+                                      Image.asset('assets/category/food.png'),
+                                ),
+                                const Text(
+                                  'Food',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(31, 54, 113, 1),
+                                    fontSize: 15,
+                                    fontFamily: 'Lexend',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: 120,
+                            width: 95,
+                            decoration: BoxDecoration(
+                                color: const Color.fromRGBO(140, 201, 246, 1),
+                                borderRadius: BorderRadius.circular(7.5)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 20),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(209, 235, 254, 1),
+                                    borderRadius: BorderRadius.circular(7.5),
+                                  ),
+                                  child: Image.asset(
+                                      'assets/category/shopping.png'),
+                                ),
+                                const Text(
+                                  'Shopping',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(31, 54, 113, 1),
+                                    fontSize: 15,
+                                    fontFamily: 'Lexend',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: 120,
+                            width: 95,
+                            decoration: BoxDecoration(
+                                color: const Color.fromRGBO(140, 201, 246, 1),
+                                borderRadius: BorderRadius.circular(7.5)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 20),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(209, 235, 254, 1),
+                                    borderRadius: BorderRadius.circular(7.5),
+                                  ),
+                                  child:
+                                      Image.asset('assets/category/mall.png'),
+                                ),
+                                const Text(
+                                  'Mall',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(31, 54, 113, 1),
+                                    fontSize: 15,
+                                    fontFamily: 'Lexend',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            height: 120,
+                            width: 95,
+                            decoration: BoxDecoration(
+                                color: const Color.fromRGBO(140, 201, 246, 1),
+                                borderRadius: BorderRadius.circular(7.5)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 20),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(209, 235, 254, 1),
+                                    borderRadius: BorderRadius.circular(7.5),
+                                  ),
+                                  child: Image.asset(
+                                      'assets/category/hospital.png'),
+                                ),
+                                const Text(
+                                  'Hospital',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(31, 54, 113, 1),
+                                    fontSize: 15,
+                                    fontFamily: 'Lexend',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: 120,
+                            width: 95,
+                            decoration: BoxDecoration(
+                                color: const Color.fromRGBO(140, 201, 246, 1),
+                                borderRadius: BorderRadius.circular(7.5)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 20),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(209, 235, 254, 1),
+                                    borderRadius: BorderRadius.circular(7.5),
+                                  ),
+                                  child:
+                                      Image.asset('assets/category/sport.png'),
+                                ),
+                                const Text(
+                                  'Sport',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(31, 54, 113, 1),
+                                    fontSize: 15,
+                                    fontFamily: 'Lexend',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: 120,
+                            width: 95,
+                            decoration: BoxDecoration(
+                                color: const Color.fromRGBO(140, 201, 246, 1),
+                                borderRadius: BorderRadius.circular(7.5)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 20),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(209, 235, 254, 1),
+                                    borderRadius: BorderRadius.circular(7.5),
+                                  ),
+                                  child: Image.asset(
+                                      'assets/category/entertain.png'),
+                                ),
+                                const Text(
+                                  'Entertain',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(31, 54, 113, 1),
+                                    fontSize: 15,
+                                    fontFamily: 'Lexend',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+
+                  // NEWS AND REPORT
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const Text(
+                    "l News and Report",
+                    style: TextStyle(
+                      color: Color.fromRGBO(31, 54, 113, 1),
+                      fontSize: 16,
+                      fontFamily: 'Lexend',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset('assets/news.png'),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12.5, horizontal: 10),
+                        decoration: BoxDecoration(
+                            color: const Color.fromRGBO(209, 235, 254, 1),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Image.asset('assets/report.png'),
+                        // rgba(209, 235, 254, 1)
+                      ),
+                    ],
+                  ),
+                  // AIR POLUTION IN BSD
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const Text(
+                    "l Air Polution in BSD",
+                    style: TextStyle(
+                      color: Color.fromRGBO(31, 54, 113, 1),
+                      fontSize: 16,
+                      fontFamily: 'Lexend',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: const Color.fromRGBO(255, 99, 99, 1),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Row(
+                      children: [],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        onPressed: () {
-          // Handle profile icon press
-        },
       ),
-      title: Center(
-        child: Image.asset(
-          'assets/logo.png', // Path to your logo asset
-          height: 50,
-        ),
-      ),
-      actions: [
-        IconButton(
-          icon: const Icon(
-            Icons.notifications_outlined,
-            color: Color.fromRGBO(31, 54, 113, 1),
-            size: 35,
-          ),
-          onPressed: () {
-            // Handle notification icon press
-          },
-        ),
-      ],
-    ));
+    );
   }
 }
