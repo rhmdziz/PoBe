@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pobe/news_list.dart';
+import 'package:pobe/news_report.dart';
 import 'package:pobe/profile.dart';
 
 class HomePage extends StatefulWidget {
@@ -379,22 +379,32 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => const NewsListPage())),
-                            );
-                          },
-                          child: Image.asset('assets/news.png')),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12.5, horizontal: 17.5),
-                        decoration: BoxDecoration(
-                            color: const Color.fromRGBO(209, 235, 254, 1),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Image.asset('assets/report.png'),
-                        // rgba(209, 235, 254, 1)
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => const NewsListPage())),
+                          );
+                        },
+                        child: Image.asset('assets/news.png'),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => const NewsReportPage())),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12.5, horizontal: 17.5),
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(209, 235, 254, 1),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Image.asset('assets/report.png'),
+                          // rgba(209, 235, 254, 1)
+                        ),
                       ),
                     ],
                   ),

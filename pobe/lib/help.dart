@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pobe/term_and_condition.dart';
 
 class HelpPage extends StatelessWidget {
@@ -164,7 +162,7 @@ class HelpPage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 20),
+              padding: const EdgeInsets.only(left: 20),
               child: Column(
                 children: [
                   Align(

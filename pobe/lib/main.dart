@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pobe/splash/welcome.dart';
-import 'package:pobe/term_and_condition.dart';
 
 void main() {
   runApp(const MyApp());

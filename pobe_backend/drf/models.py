@@ -137,8 +137,8 @@ class News(models.Model):
     author = models.CharField(max_length=40, default='Azhira')
     content = models.CharField(max_length=3000)
     title = models.CharField(max_length=100, default='Title')
-    views = models.CharField(max_length=10)
-    up = models.CharField(max_length=10)
+    views = models.CharField(max_length=10, default=0)
+    up = models.CharField(max_length=10, default=0)
     image = models.ImageField(blank=True)
 
     def __str__(self):
