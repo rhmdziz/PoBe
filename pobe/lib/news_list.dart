@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_print
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:pobe/help.dart';
 import 'dart:convert';
@@ -67,8 +69,8 @@ class _NewsListPageState extends State<NewsListPage> {
   Future<List<News>> fetchNews() async {
     final response =
         // await http.get(Uri.parse('http://192.168.50.61:8000/newss/'));
-        await http.get(Uri.parse('http://192.168.50.61:8000/newss/'));
-    print(response.body);
+        await http.get(Uri.parse('http://10.10.162.203:8000/newss/'));
+    // print(response.body);
     print(response.statusCode);
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
@@ -246,6 +248,7 @@ class _NewsListPageState extends State<NewsListPage> {
           const SizedBox(
             height: 20,
           ),
+          // TABS
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Row(
@@ -258,8 +261,8 @@ class _NewsListPageState extends State<NewsListPage> {
               ],
             ),
           ),
+          // NEWS LIST
           Flexible(
-            fit: FlexFit.loose,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: FutureBuilder<List<News>>(

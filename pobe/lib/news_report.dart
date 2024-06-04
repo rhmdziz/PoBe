@@ -37,7 +37,7 @@ class _NewsReportPageState extends State<NewsReportPage> {
 
   Future<void> sendData(String title, String content, File? imageFile) async {
     try {
-      var url = Uri.parse('http://192.168.50.61:8000/newss/');
+      var url = Uri.parse('http://10.10.162.203:8000/newss/');
       var request = http.MultipartRequest('POST', url);
       request.fields['title'] = title;
       request.fields['content'] = content;
@@ -55,9 +55,7 @@ class _NewsReportPageState extends State<NewsReportPage> {
       if (response.statusCode == 201) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  const SplashScreenReported()),
+          MaterialPageRoute(builder: (context) => const SplashScreenReported()),
         );
       }
     } catch (e) {
