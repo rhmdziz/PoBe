@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pobe/aqi.dart';
 import 'package:pobe/aqi_section.dart';
 import 'package:pobe/news_list.dart';
 import 'package:pobe/news_report.dart';
@@ -438,7 +437,7 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  AqiSection(),
+                  const AqiSection(),
                   const SizedBox(
                     height: 40,
                   )
