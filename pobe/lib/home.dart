@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pobe/aqi.dart';
+import 'package:pobe/aqi_section.dart';
 import 'package:pobe/news_list.dart';
 import 'package:pobe/news_report.dart';
 import 'package:pobe/profile.dart';
@@ -138,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Container(
                             height: 120,
-                            width: 95,
+                            width: 100,
                             decoration: BoxDecoration(
                                 color: const Color.fromRGBO(140, 201, 246, 1),
                                 borderRadius: BorderRadius.circular(7.5)),
@@ -173,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Container(
                             height: 120,
-                            width: 95,
+                            width: 100,
                             decoration: BoxDecoration(
                                 color: const Color.fromRGBO(140, 201, 246, 1),
                                 borderRadius: BorderRadius.circular(7.5)),
@@ -208,7 +210,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Container(
                             height: 120,
-                            width: 95,
+                            width: 100,
                             decoration: BoxDecoration(
                                 color: const Color.fromRGBO(140, 201, 246, 1),
                                 borderRadius: BorderRadius.circular(7.5)),
@@ -251,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Container(
                             height: 120,
-                            width: 95,
+                            width: 100,
                             decoration: BoxDecoration(
                                 color: const Color.fromRGBO(140, 201, 246, 1),
                                 borderRadius: BorderRadius.circular(7.5)),
@@ -286,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Container(
                             height: 120,
-                            width: 95,
+                            width: 100,
                             decoration: BoxDecoration(
                                 color: const Color.fromRGBO(140, 201, 246, 1),
                                 borderRadius: BorderRadius.circular(7.5)),
@@ -321,7 +323,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Container(
                             height: 120,
-                            width: 95,
+                            width: 100,
                             decoration: BoxDecoration(
                                 color: const Color.fromRGBO(140, 201, 246, 1),
                                 borderRadius: BorderRadius.circular(7.5)),
@@ -386,7 +388,14 @@ class _HomePageState extends State<HomePage> {
                                 builder: ((context) => const NewsListPage())),
                           );
                         },
-                        child: Image.asset('assets/news.png'),
+                        child: SizedBox(
+                          width: 160,
+                          height: 100,
+                          child: Image.asset(
+                            'assets/news.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -397,12 +406,17 @@ class _HomePageState extends State<HomePage> {
                           );
                         },
                         child: Container(
+                          width: 170,
+                          height: 100,
                           padding: const EdgeInsets.symmetric(
                               vertical: 12.5, horizontal: 17.5),
                           decoration: BoxDecoration(
                               color: const Color.fromRGBO(209, 235, 254, 1),
                               borderRadius: BorderRadius.circular(10)),
-                          child: Image.asset('assets/report.png'),
+                          child: Image.asset(
+                            'assets/report.png',
+                            fit: BoxFit.cover,
+                          ),
                           // rgba(209, 235, 254, 1)
                         ),
                       ),
@@ -424,17 +438,10 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(255, 99, 99, 1),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Row(
-                      children: [],
-                    ),
-                  ),
+                  AqiSection(),
+                  const SizedBox(
+                    height: 40,
+                  )
                 ],
               ),
             ),

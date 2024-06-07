@@ -1,8 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:pobe/help.dart';
 import 'dart:convert';
@@ -69,7 +67,7 @@ class _NewsListPageState extends State<NewsListPage> {
   Future<List<News>> fetchNews() async {
     final response =
         // await http.get(Uri.parse('http://192.168.50.61:8000/newss/'));
-        await http.get(Uri.parse('http://10.10.162.203:8000/newss/'));
+        await http.get(Uri.parse('http://10.10.161.232:8000/newss/'));
     // print(response.body);
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -147,7 +145,8 @@ class _NewsListPageState extends State<NewsListPage> {
                 } else {
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: snapshot.data!.length,
+                    // itemCount: snapshot.data!.length,
+                    itemCount: 3,
                     itemBuilder: (context, index) {
                       News news = snapshot.data![index];
                       return GestureDetector(
