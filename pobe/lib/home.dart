@@ -3,6 +3,7 @@ import 'package:pobe/aqi_section.dart';
 import 'package:pobe/news_list.dart';
 import 'package:pobe/news_report.dart';
 import 'package:pobe/profile.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,6 +13,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final PageController _controller = PageController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,56 +70,76 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
-                    height: 195,
-                    width: double.infinity,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: <Widget>[
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            'assets/1.png',
-                            width: MediaQuery.of(context).size.width * 0.84,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.asset(
-                              'assets/2.png',
-                              width: MediaQuery.of(context).size.width * 0.82,
-                              fit: BoxFit.cover,
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 195,
+                        width: double.infinity,
+                        child: PageView(
+                          controller: _controller,
+                          children: <Widget>[
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                'assets/1.png',
+                                width: MediaQuery.of(context).size.width * 0.84,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  'assets/2.png',
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.82,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                'assets/3.png',
+                                width: MediaQuery.of(context).size.width * 0.84,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
                         ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            'assets/3.png',
-                            width: MediaQuery.of(context).size.width * 0.84,
-                            fit: BoxFit.cover,
-                          ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Discover BSD",
+                        style: TextStyle(
+                          color: Color.fromRGBO(31, 54, 113, 1),
+                          fontSize: 16,
+                          fontFamily: 'Lexend',
+                          fontWeight: FontWeight.w500,
                         ),
-                      ],
-                    ),
+                      ),
+                      SmoothPageIndicator(
+                        controller: _controller,
+                        count: 3,
+                        effect: const ExpandingDotsEffect(
+                          activeDotColor: Color.fromRGBO(31, 54, 113, 1),
+                          dotColor: Colors.grey,
+                          dotHeight: 8,
+                          dotWidth: 8,
+                          expansionFactor: 3,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    "Discover BSD",
-                    style: TextStyle(
-                      color: Color.fromRGBO(31, 54, 113, 1),
-                      fontSize: 16,
-                      fontFamily: 'Lexend',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
+                    height: 20,
                   ),
                   const Text(
                     "l Category",
