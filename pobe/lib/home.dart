@@ -131,10 +131,11 @@ class _HomePageState extends State<HomePage> {
                         count: 3,
                         effect: const ExpandingDotsEffect(
                           activeDotColor: Color.fromRGBO(31, 54, 113, 1),
-                          dotColor: Colors.grey,
-                          dotHeight: 8,
-                          dotWidth: 8,
-                          expansionFactor: 3,
+                          dotColor: Color.fromRGBO(31, 54, 111, 0.42),
+                          // rgba(31, 54, 111, 0.42)
+                          dotHeight: 7,
+                          dotWidth: 7,
+                          expansionFactor: 4,
                         ),
                       ),
                     ],

@@ -69,7 +69,7 @@ class _AqiSectionState extends State<AqiSection> {
     } else if (aqi <= 150) {
       return Colors.orange;
     } else if (aqi <= 200) {
-      return Colors.red;
+      return const Color.fromRGBO(255, 99, 99, 1);
     } else if (aqi <= 300) {
       return Colors.purple;
     } else {
@@ -121,7 +121,7 @@ class _AqiSectionState extends State<AqiSection> {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
@@ -170,8 +170,8 @@ class _AqiSectionState extends State<AqiSection> {
                               '$aqi',
                               style: const TextStyle(
                                 color: Colors.black87,
-                                fontSize: 32,
-                                fontFamily: 'Lexend',
+                                fontSize: 46,
+                                // fontFamily: 'Lexend',
                                 fontWeight: FontWeight.w600,
                               ),
                             )
@@ -182,7 +182,7 @@ class _AqiSectionState extends State<AqiSection> {
                             style: TextStyle(
                               color: Colors.black87,
                               fontSize: 16,
-                              fontFamily: 'Lexend',
+                              // fontFamily: 'Lexend',
                               fontWeight: FontWeight.w600,
                             ),
                           ),
