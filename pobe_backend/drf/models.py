@@ -28,18 +28,33 @@ max_price_list = [
         ('Rp750.000,-', 'Rp750.000,-'),
         ('Rp1000.000,-', 'Rp1000.000,-'),
     ]
+rating_list = [
+    ('1','1'),
+    ('2','2'),
+    ('3','3'),
+    ('4','4'),
+    ('5','5'),
+]
+price_list = [
+    ('1','1'),
+    ('2','2'),
+    ('3','3'),
+    ('4','4'),
+    ('5','5'),
+]
 
 class Food(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40)
-    desc = models.CharField(max_length=300)
+    desc = models.CharField(max_length=500)
     location = models.CharField(max_length=100)
     operational_hour = models.CharField(max_length=40, choices=operational_hour_list, default='08:00 - 22:00 WIB')
     operational_day = models.CharField(max_length=40, choices=operational_day_list, default='Senin - Minggu')
     phone = models.CharField(max_length=20)
     min_price = models.CharField(max_length=20, choices=min_price_list)
     max_price = models.CharField(max_length=20, choices=max_price_list)
-    rating = models.CharField(max_length=4)
+    rating = models.CharField(max_length=4, choices=rating_list)
+    price = models.CharField(max_length=4, choices=price_list, default=2)
     review = models.CharField(max_length=6)
     image = models.ImageField(blank=True)
 
@@ -48,14 +63,15 @@ class Food(models.Model):
 class Entertain(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40)
-    desc = models.CharField(max_length=300)
+    desc = models.CharField(max_length=500)
     location = models.CharField(max_length=100)
     operational_hour = models.CharField(max_length=40, choices=operational_hour_list, default='08:00 - 22:00 WIB')
     operational_day = models.CharField(max_length=40, choices=operational_day_list, default='Senin - Minggu')
     phone = models.CharField(max_length=20)
     min_price = models.CharField(max_length=20, choices=min_price_list)
     max_price = models.CharField(max_length=20, choices=max_price_list)
-    rating = models.CharField(max_length=4)
+    rating = models.CharField(max_length=4, choices=rating_list)
+    price = models.CharField(max_length=4, choices=price_list, default=2)
     review = models.CharField(max_length=6)
     image = models.ImageField(blank=True)
 
@@ -64,14 +80,15 @@ class Entertain(models.Model):
 class Sport(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40)
-    desc = models.CharField(max_length=300)
+    desc = models.CharField(max_length=500)
     location = models.CharField(max_length=100)
     operational_hour = models.CharField(max_length=40, choices=operational_hour_list, default='08:00 - 22:00 WIB')
     operational_day = models.CharField(max_length=40, choices=operational_day_list, default='Senin - Minggu')
     phone = models.CharField(max_length=20)
     min_price = models.CharField(max_length=20, choices=min_price_list)
     max_price = models.CharField(max_length=20, choices=max_price_list)
-    rating = models.CharField(max_length=4)
+    rating = models.CharField(max_length=4, choices=rating_list)
+    price = models.CharField(max_length=4, choices=price_list, default=2)
     review = models.CharField(max_length=6)
     image = models.ImageField(blank=True)
 
@@ -81,14 +98,15 @@ class Sport(models.Model):
 class Hospital(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40)
-    desc = models.CharField(max_length=300)
+    desc = models.CharField(max_length=500)
     location = models.CharField(max_length=100)
     operational_hour = models.CharField(max_length=40, choices=operational_hour_list, default='08:00 - 22:00 WIB')
     operational_day = models.CharField(max_length=40, choices=operational_day_list, default='Senin - Minggu')
     phone = models.CharField(max_length=20)
     min_price = models.CharField(max_length=20, choices=min_price_list)
     max_price = models.CharField(max_length=20, choices=max_price_list)
-    rating = models.CharField(max_length=4)
+    rating = models.CharField(max_length=4, choices=rating_list)
+    price = models.CharField(max_length=4, choices=price_list, default=2)
     review = models.CharField(max_length=6)
     image = models.ImageField(blank=True)
 
@@ -98,14 +116,15 @@ class Hospital(models.Model):
 class Mall(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40)
-    desc = models.CharField(max_length=300)
+    desc = models.CharField(max_length=500)
     location = models.CharField(max_length=100)
     operational_hour = models.CharField(max_length=40, choices=operational_hour_list, default='08:00 - 22:00 WIB')
     operational_day = models.CharField(max_length=40, choices=operational_day_list, default='Senin - Minggu')
     phone = models.CharField(max_length=20)
     min_price = models.CharField(max_length=20, choices=min_price_list)
     max_price = models.CharField(max_length=20, choices=max_price_list)
-    rating = models.CharField(max_length=4)
+    rating = models.CharField(max_length=4, choices=rating_list)
+    price = models.CharField(max_length=4, choices=price_list, default=2)
     review = models.CharField(max_length=6)
     image = models.ImageField(blank=True)
 
@@ -115,14 +134,15 @@ class Mall(models.Model):
 class Shopping(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40)
-    desc = models.CharField(max_length=300)
+    desc = models.CharField(max_length=500)
     location = models.CharField(max_length=100)
     operational_hour = models.CharField(max_length=40, choices=operational_hour_list, default='08:00 - 22:00 WIB')
     operational_day = models.CharField(max_length=40, choices=operational_day_list, default='Senin - Minggu')
     phone = models.CharField(max_length=20)
     min_price = models.CharField(max_length=20, choices=min_price_list)
     max_price = models.CharField(max_length=20, choices=max_price_list)
-    rating = models.CharField(max_length=4)
+    rating = models.CharField(max_length=4, choices=rating_list)
+    price = models.CharField(max_length=4, choices=price_list, default=2)
     review = models.CharField(max_length=6)
     image = models.ImageField(blank=True)
 
