@@ -193,6 +193,9 @@ class _AqiSectionState extends State<AqiSection> {
                 ],
               ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
             Text(
               'Last update: $time',
               style: const TextStyle(

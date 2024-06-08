@@ -121,9 +121,9 @@ class _HomePageState extends State<HomePage> {
                         "Discover BSD",
                         style: TextStyle(
                           color: Color.fromRGBO(31, 54, 113, 1),
-                          fontSize: 16,
+                          fontSize: 18,
                           fontFamily: 'Lexend',
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
                       SmoothPageIndicator(
@@ -147,9 +147,9 @@ class _HomePageState extends State<HomePage> {
                     "l Category",
                     style: TextStyle(
                       color: Color.fromRGBO(31, 54, 113, 1),
-                      fontSize: 16,
+                      fontSize: 18,
                       fontFamily: 'Lexend',
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                   const SizedBox(
@@ -167,9 +167,9 @@ class _HomePageState extends State<HomePage> {
                     "l News and Report",
                     style: TextStyle(
                       color: Color.fromRGBO(31, 54, 113, 1),
-                      fontSize: 16,
+                      fontSize: 18,
                       fontFamily: 'Lexend',
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                   const SizedBox(
@@ -213,7 +213,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(10)),
                           child: Image.asset(
                             'assets/report.png',
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                           ),
                           // rgba(209, 235, 254, 1)
                         ),
@@ -228,9 +228,9 @@ class _HomePageState extends State<HomePage> {
                     "l Air Polution in BSD",
                     style: TextStyle(
                       color: Color.fromRGBO(31, 54, 113, 1),
-                      fontSize: 16,
+                      fontSize: 18,
                       fontFamily: 'Lexend',
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                   const SizedBox(
