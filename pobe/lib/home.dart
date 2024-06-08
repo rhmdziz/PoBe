@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                   Column(
                     children: [
                       SizedBox(
-                        height: 195,
+                        height: 240,
                         width: double.infinity,
                         child: PageView(
                           controller: _controller,
