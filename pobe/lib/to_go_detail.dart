@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import './to_go_detail_map.dart';
 
-class ToGoDetailPage extends StatelessWidget {
+class ToGoDetailPage extends StatefulWidget {
   final Map<String, dynamic> item;
 
   const ToGoDetailPage({super.key, required this.item});
 
+  @override
+  State<ToGoDetailPage> createState() => _ToGoDetailPageState();
+}
+
+class _ToGoDetailPageState extends State<ToGoDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +29,7 @@ class ToGoDetailPage extends StatelessWidget {
                     color: const Color.fromRGBO(31, 54, 113, 1),
                   ),
                   Text(
-                    item['name'],
+                    widget.item['name'],
                     style: const TextStyle(
                       color: Color.fromRGBO(31, 54, 113, 1),
                       fontSize: 18,
@@ -40,7 +45,7 @@ class ToGoDetailPage extends StatelessWidget {
                 child: AspectRatio(
                   aspectRatio: 1 / 1,
                   child: Image.network(
-                    item['image'] ?? '',
+                    widget.item['image'] ?? '',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -61,7 +66,7 @@ class ToGoDetailPage extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${item['rating'] ?? '0.0'}',
+                        '${widget.item['rating'] ?? '0.0'}',
                         style: const TextStyle(fontSize: 16),
                       ),
                       const SizedBox(width: 4),
@@ -81,7 +86,7 @@ class ToGoDetailPage extends StatelessWidget {
                         const SizedBox(width: 10),
                         Flexible(
                           child: Text(
-                            item['location'],
+                            widget.item['location'],
                             style: const TextStyle(
                               fontSize: 16,
                               fontFamily: 'Lexend',
@@ -98,7 +103,7 @@ class ToGoDetailPage extends StatelessWidget {
                         const SizedBox(width: 10),
                         Flexible(
                           child: Text(
-                            '${item['operational_day']} (${item['operational_hour']})',
+                            '${widget.item['operational_day']} (${widget.item['operational_hour']})',
                             style: const TextStyle(
                               fontSize: 16,
                               fontFamily: 'Lexend',
@@ -115,7 +120,7 @@ class ToGoDetailPage extends StatelessWidget {
                         const SizedBox(width: 10),
                         Flexible(
                           child: Text(
-                            '${item['operational_day']} (${item['operational_hour']})',
+                            widget.item['phone'],
                             style: const TextStyle(
                               fontSize: 16,
                               fontFamily: 'Lexend',
@@ -132,7 +137,7 @@ class ToGoDetailPage extends StatelessWidget {
                         const SizedBox(width: 10),
                         Flexible(
                           child: Text(
-                            '${item['min_price']}${item['max_price']} / person',
+                            '${widget.item['min_price']}${widget.item['max_price']} / person',
                             style: const TextStyle(
                               fontSize: 16,
                               fontFamily: 'Lexend',
@@ -151,7 +156,7 @@ class ToGoDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                item['desc'] ?? 'No Description',
+                widget.item['desc'] ?? 'No Description',
                 style: const TextStyle(
                   fontSize: 16,
                   fontFamily: 'Lexend',
@@ -159,6 +164,35 @@ class ToGoDetailPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DirectionsPage(
+                        latitude: widget.item['latitude'],
+                        longitude: widget.item['longitude'],
+                      ),
+                    ),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: const MaterialStatePropertyAll(
+                      Color.fromRGBO(31, 54, 113, 1)),
+                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10))),
+                  minimumSize:
+                      const MaterialStatePropertyAll(Size(double.infinity, 50)),
+                ),
+                child: const Text(
+                  'Directions',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Lexend',
+                    fontSize: 16,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

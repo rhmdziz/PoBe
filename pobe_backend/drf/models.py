@@ -57,6 +57,8 @@ class Food(models.Model):
     price = models.CharField(max_length=4, choices=price_list, default=2)
     review = models.CharField(max_length=6)
     image = models.ImageField(blank=True)
+    latitude = models.FloatField(blank=True, default=-6.300136)
+    longitude = models.FloatField(blank=True, default=106.639061)
 
     def __str__(self):
         return self.name
@@ -74,6 +76,8 @@ class Entertain(models.Model):
     price = models.CharField(max_length=4, choices=price_list, default=2)
     review = models.CharField(max_length=6)
     image = models.ImageField(blank=True)
+    latitude = models.FloatField(blank=True, default=-6.300136)
+    longitude = models.FloatField(blank=True, default=106.639061)
 
     def __str__(self):
         return self.name
@@ -91,6 +95,8 @@ class Sport(models.Model):
     price = models.CharField(max_length=4, choices=price_list, default=2)
     review = models.CharField(max_length=6)
     image = models.ImageField(blank=True)
+    latitude = models.FloatField(blank=True, default=-6.300136)
+    longitude = models.FloatField(blank=True, default=106.639061)
 
     def __str__(self):
         return self.name
@@ -109,6 +115,8 @@ class Hospital(models.Model):
     price = models.CharField(max_length=4, choices=price_list, default=2)
     review = models.CharField(max_length=6)
     image = models.ImageField(blank=True)
+    latitude = models.FloatField(blank=True, default=-6.300136)
+    longitude = models.FloatField(blank=True, default=106.639061)
 
     def __str__(self):
         return self.name
@@ -127,6 +135,9 @@ class Mall(models.Model):
     price = models.CharField(max_length=4, choices=price_list, default=2)
     review = models.CharField(max_length=6)
     image = models.ImageField(blank=True)
+    latitude = models.FloatField(blank=True, default=-6.300136)
+    longitude = models.FloatField(blank=True, default=106.639061)
+    
 
     def __str__(self):
         return self.name
@@ -145,6 +156,8 @@ class Shopping(models.Model):
     price = models.CharField(max_length=4, choices=price_list, default=2)
     review = models.CharField(max_length=6)
     image = models.ImageField(blank=True)
+    latitude = models.FloatField(blank=True, default=-6.300136)
+    longitude = models.FloatField(blank=True, default=106.639061)
 
     def __str__(self):
         return self.name
@@ -170,3 +183,4 @@ class CommentNews(models.Model):
     datetime = models.DateTimeField(auto_now=True)
     content = models.CharField(max_length=200)
     avatar = models.ImageField(blank=True)
+

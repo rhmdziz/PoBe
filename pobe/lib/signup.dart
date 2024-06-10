@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pobe/splash/success_reg.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Regist extends StatefulWidget {
   const Regist({super.key});
@@ -11,10 +13,41 @@ class Regist extends StatefulWidget {
 class _RegistState extends State<Regist> {
   bool _obscureText = true;
 
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
+
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  Future<void> _registerUser() async {
+    final url = Uri.parse('http://192.168.50.61:8000/api/signup/');
+    final response = await http.post(
+      url,
+      body: json.encode({
+        'username': _usernameController.text,
+        'email': _emailController.text,
+        'password': _passwordController.text,
+      }),
+      headers: {'Content-Type': 'application/json'},
+    );
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SplashScreenSignUp()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Registration failed. Please try again.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -49,8 +82,9 @@ class _RegistState extends State<Regist> {
             const SizedBox(
               height: 30,
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _usernameController,
+              decoration: const InputDecoration(
                 filled: true,
                 fillColor: Color.fromRGBO(80, 137, 198, 0.22),
                 labelStyle: TextStyle(
@@ -59,7 +93,7 @@ class _RegistState extends State<Regist> {
                   fontFamily: 'Lexend',
                   fontWeight: FontWeight.w300,
                 ),
-                labelText: 'Email or username',
+                labelText: 'Username',
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 15, horizontal: 16),
                 border: OutlineInputBorder(
@@ -72,6 +106,30 @@ class _RegistState extends State<Regist> {
               height: 20,
             ),
             TextField(
+              controller: _emailController,
+              decoration: const InputDecoration(
+                filled: true,
+                fillColor: Color.fromRGBO(80, 137, 198, 0.22),
+                labelStyle: TextStyle(
+                  color: Color.fromRGBO(31, 54, 113, 1),
+                  fontSize: 14,
+                  fontFamily: 'Lexend',
+                  fontWeight: FontWeight.w300,
+                ),
+                labelText: 'Email',
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(7.5)),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextField(
+              controller: _passwordController,
               obscureText: _obscureText,
               decoration: InputDecoration(
                 filled: true,
@@ -102,6 +160,7 @@ class _RegistState extends State<Regist> {
               height: 20,
             ),
             TextField(
+              controller: _confirmPasswordController,
               obscureText: _obscureText,
               decoration: InputDecoration(
                 filled: true,
@@ -132,14 +191,7 @@ class _RegistState extends State<Regist> {
               height: 30,
             ),
             TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SplashScreenSignUp(),
-                  ),
-                );
-              },
+              onPressed: _registerUser,
               style: ButtonStyle(
                 backgroundColor: const MaterialStatePropertyAll(
                     Color.fromRGBO(31, 54, 113, 1)),

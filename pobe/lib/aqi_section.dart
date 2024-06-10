@@ -69,7 +69,7 @@ class _AqiSectionState extends State<AqiSection> {
     } else if (aqi <= 150) {
       return Colors.orange;
     } else if (aqi <= 200) {
-      return const Color.fromRGBO(255, 99, 99, 1);
+      return const Color.fromRGBO(255, 138, 138, 1);
     } else if (aqi <= 300) {
       return Colors.purple;
     } else {
@@ -121,14 +121,14 @@ class _AqiSectionState extends State<AqiSection> {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
                     child: Container(
                       width: 150,
                       height: 150,
-                      color: const Color.fromARGB(15, 0, 0, 0),
+                      color: const Color.fromRGBO(0, 0, 0, 0.075),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -148,11 +148,11 @@ class _AqiSectionState extends State<AqiSection> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
                     child: Container(
-                      width: 170,
+                      width: 190,
                       decoration: const BoxDecoration(
-                        color: Color.fromARGB(120, 255, 155, 155),
+                        color: Color.fromRGBO(255, 255, 255, 0.15),
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(5),
                             bottomRight: Radius.circular(5)),

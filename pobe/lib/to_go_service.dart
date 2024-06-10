@@ -5,12 +5,6 @@ import 'package:http/http.dart' as http;
 
 class ApiService {
   final Map<String, String> categoryUrls = {
-    // 'Food': 'http://10.10.161.232:8000/foods/',
-    // 'Entertain': 'http://10.10.161.232:8000/entertains/',
-    // 'Sport': 'http://10.10.161.232:8000/sports/',
-    // 'Hospital': 'http://10.10.161.232:8000/hospitals/',
-    // 'Mall': 'http://10.10.161.232:8000/malls/',
-    // 'Shopping': 'http://10.10.161.232:8000/shoppings/',
     'Food': 'http://192.168.50.61:8000/foods/',
     'Entertain': 'http://192.168.50.61:8000/entertains/',
     'Sport': 'http://192.168.50.61:8000/sports/',

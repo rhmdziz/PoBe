@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'to_go.dart'; // import the ToGo page
+import 'to_go.dart';
 
 class CategoriesSection extends StatelessWidget {
   const CategoriesSection({super.key});

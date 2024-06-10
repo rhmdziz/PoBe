@@ -1,4 +1,7 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:pobe/forgot_pass.dart';
 import 'package:pobe/home.dart';
 import 'package:pobe/signup.dart';
@@ -12,11 +15,72 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool _obscureText = true;
+  late String _csrfToken = '';
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCsrfToken();
+  }
+
+  void _getCsrfToken() async {
+    var response = await http.get(
+      Uri.parse('http://192.168.50.61:8000/api-auth/login/'),
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        _csrfToken = response.headers['set-cookie'] ?? '';
+      });
+    }
+  }
+
+  void _login(String username, String password) async {
+    String username = _usernameController.text;
+    String password = _passwordController.text;
+
+    var response = await http.post(
+      Uri.parse(
+          // 'http://10.10.162.4:8000/api-auth/login/?next=/'),
+          'http://192.168.50.61:8000/api-auth/login/'),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': _csrfToken,
+      },
+      body: {
+        'username': username,
+        'password': password,
+        'csrfmiddlewaretoken': _extractCsrfToken(),
+      },
+    );
+
+    print(response.statusCode);
+
+    if (response.statusCode == 302) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (_) => const HomePage(),
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Login failed. Please check your credentials.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  String _extractCsrfToken() {
+    // Ekstrak token CSRF dari string header Cookie
+    return _csrfToken.split(';')[0].split('=')[1];
   }
 
   @override
@@ -33,8 +97,9 @@ class _LoginState extends State<Login> {
               const SizedBox(
                 height: 40,
               ),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _usernameController,
+                decoration: const InputDecoration(
                   filled: true,
                   fillColor: Color.fromRGBO(80, 137, 198, 0.22),
                   labelStyle: TextStyle(
@@ -56,6 +121,7 @@ class _LoginState extends State<Login> {
                 height: 20,
               ),
               TextField(
+                controller: _passwordController,
                 obscureText: _obscureText,
                 decoration: InputDecoration(
                   filled: true,
@@ -104,9 +170,7 @@ class _LoginState extends State<Login> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (_) => const HomePage(),
-                  ));
+                  _login(_usernameController.text, _passwordController.text);
                 },
                 style: ButtonStyle(
                   backgroundColor: const MaterialStatePropertyAll(
@@ -165,11 +229,11 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Image.asset(
-                      'assets/logo_google.png', // Ganti dengan path gambar logo Google Anda
-                      width: 24, // Sesuaikan dengan ukuran logo Google
-                      height: 24, // Sesuaikan dengan ukuran logo Google
+                      'assets/logo_google.png',
+                      width: 24,
+                      height: 24,
                     ),
-                    const SizedBox(width: 8), // Jarak antara logo dan teks
+                    const SizedBox(width: 8),
                     const Text(
                       'Continue with Google Account',
                       style: TextStyle(

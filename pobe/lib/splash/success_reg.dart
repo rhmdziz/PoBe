@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lottie/lottie.dart';
-import 'package:pobe/home.dart';
+import 'package:lottie/lottie.dart'; 
+import 'package:pobe/login.dart';
 
 class SplashScreenSignUp extends StatefulWidget {
   const SplashScreenSignUp({super.key});
@@ -18,7 +18,7 @@ class _SplashScreenSignUpState extends State<SplashScreenSignUp>
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => const HomePage(),
+        builder: (_) => const Login(),
       ));
     });
   }

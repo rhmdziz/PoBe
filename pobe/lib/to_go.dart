@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pobe/help.dart';
-import 'package:pobe/to_to_detail.dart';
+import 'package:pobe/to_go_map_section.dart';
+import 'package:pobe/to_go_detail.dart';
 import './to_go_service.dart';
 
 class ToGo extends StatefulWidget {
@@ -23,14 +24,16 @@ class _ToGoState extends State<ToGo> {
 
   @override
   Widget build(BuildContext context) {
+    final apiUrl = ApiService().categoryUrls[widget.category] ?? '';
+
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 40),
-            Row(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 40),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
@@ -67,8 +70,12 @@ class _ToGoState extends State<ToGo> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-            Text(
+          ),
+          ToGoMaps(apiUrl: apiUrl),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Text(
               'Nearby ${widget.category}',
               style: const TextStyle(
                 color: Color.fromRGBO(31, 54, 113, 1),
@@ -77,22 +84,25 @@ class _ToGoState extends State<ToGo> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Expanded(
-              child: FutureBuilder<List<dynamic>>(
-                future: futureCategoryData,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text('No data found'));
-                  } else {
-                    return ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        var item = snapshot.data![index];
-                        return Card(
+          ),
+          Expanded(
+            child: FutureBuilder<List<dynamic>>(
+              future: futureCategoryData,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(child: Text('No data found'));
+                } else {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      var item = snapshot.data![index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        child: Card(
                           elevation: 0,
                           child: InkWell(
                             onTap: () {
@@ -244,15 +254,15 @@ class _ToGoState extends State<ToGo> {
                               ),
                             ),
                           ),
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
+                        ),
+                      );
+                    },
+                  );
+                }
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

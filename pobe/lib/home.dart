@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:pobe/aqi_section.dart';
 import 'package:pobe/category_section.dart';
 import 'package:pobe/news_list.dart';
 import 'package:pobe/news_report.dart';
 import 'package:pobe/profile.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:pobe/set_destination.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,10 +17,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final PageController _controller = PageController();
+  bool _notificationsEnabled = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -61,10 +65,45 @@ class _HomePageState extends State<HomePage> {
                         'assets/logo.png', // Path to your logo asset
                         height: 50,
                       ),
-                      const Icon(
-                        Icons.notifications_outlined,
-                        color: Color.fromRGBO(31, 54, 113, 1),
-                        size: 35,
+                      Stack(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _notificationsEnabled = !_notificationsEnabled;
+                              });
+                            },
+                            icon: const Icon(
+                              Icons.notifications_outlined,
+                              color: Color.fromRGBO(31, 54, 113, 1),
+                              size: 35,
+                            ),
+                          ),
+                          if (_notificationsEnabled)
+                            Positioned(
+                              right: 0,
+                              top: 0,
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                  color: Colors.orange,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                constraints: const BoxConstraints(
+                                  minWidth: 18,
+                                  minHeight: 18,
+                                ),
+                                child: const Text(
+                                  '2',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
                     ],
                   ),
@@ -132,13 +171,118 @@ class _HomePageState extends State<HomePage> {
                         effect: const ExpandingDotsEffect(
                           activeDotColor: Color.fromRGBO(31, 54, 113, 1),
                           dotColor: Color.fromRGBO(31, 54, 111, 0.42),
-                          // rgba(31, 54, 111, 0.42)
                           dotHeight: 7,
                           dotWidth: 7,
                           expansionFactor: 4,
                         ),
                       ),
                     ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SetDestiny(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 130,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.lightBlue[50],
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: const Color.fromRGBO(
+                                  14, 47, 98, 1), // Dark blue color
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 1,
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/bus.png'),
+                                const SizedBox(width: 20),
+                                const Text(
+                                  "Find Your Transport With Us",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'Lexend',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: Colors.lightBlue[100],
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        "add a destination",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontFamily: 'Lexend',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Container(
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        "AEON - The Breeze",
+                                        style: TextStyle(
+                                          color: Color.fromRGBO(31, 54, 113, 1),
+                                          fontSize: 16,
+                                          fontFamily: 'Lexend',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -155,11 +299,7 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 10,
                   ),
-
-                  // CATEGORY
                   const CategoriesSection(),
-
-                  // NEWS AND REPORT
                   const SizedBox(
                     height: 30,
                   ),
@@ -187,7 +327,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         },
                         child: SizedBox(
-                          width: 160,
+                          width: 170,
                           height: 100,
                           child: Image.asset(
                             'assets/news.png',
@@ -204,7 +344,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         },
                         child: Container(
-                          width: 170,
+                          width: 190,
                           height: 100,
                           padding: const EdgeInsets.symmetric(
                               vertical: 12.5, horizontal: 17.5),
@@ -215,17 +355,16 @@ class _HomePageState extends State<HomePage> {
                             'assets/report.png',
                             fit: BoxFit.fill,
                           ),
-                          // rgba(209, 235, 254, 1)
                         ),
                       ),
                     ],
                   ),
-                  // AIR POLUTION IN BSD
+                  // AIR POLLUTION IN BSD
                   const SizedBox(
                     height: 30,
                   ),
                   const Text(
-                    "l Air Polution in BSD",
+                    "l Air Pollution in BSD",
                     style: TextStyle(
                       color: Color.fromRGBO(31, 54, 113, 1),
                       fontSize: 18,
