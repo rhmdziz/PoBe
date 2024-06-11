@@ -38,7 +38,7 @@ class _NewsReportPageState extends State<NewsReportPage> {
   Future<void> sendData(String title, String content, File? imageFile) async {
     try {
       // var url = Uri.parse('http://10.10.161.232:8000/newss/');
-      var url = Uri.parse('http://192.168.50.61:8000/newss/');
+      var url = Uri.parse('http://10.10.162.66:8000/newss/');
       // var url = Uri.parse('http://10.10.162.4:8000/newss/');
       var request = http.MultipartRequest('POST', url);
       request.fields['title'] = title;

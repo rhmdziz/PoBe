@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pobe/help.dart';
 import 'package:pobe/splash/success_reg.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -25,7 +26,7 @@ class _RegistState extends State<Regist> {
   }
 
   Future<void> _registerUser() async {
-    final url = Uri.parse('http://192.168.50.61:8000/api/signup/');
+    final url = Uri.parse('http://10.10.162.66:8000/api/signup/');
     final response = await http.post(
       url,
       body: json.encode({
@@ -54,26 +55,36 @@ class _RegistState extends State<Regist> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text(
-          'Back',
-          style: TextStyle(
-              color: Color.fromRGBO(31, 54, 113, 1),
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-              fontFamily: 'Lexend'),
-        ),
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios),
-          color: const Color.fromRGBO(31, 54, 113, 1),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 30),
         child: Column(
           children: [
+            const SizedBox(
+              height: 40,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.arrow_back_ios),
+                      color: const Color.fromRGBO(31, 54, 113, 1),
+                    ),
+                    const Text(
+                      'Back',
+                      style: TextStyle(
+                        color: Color.fromRGBO(31, 54, 113, 1),
+                        fontSize: 18,
+                        fontFamily: 'Lexend',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             Image.asset(
               'assets/logo.png',
               width: 175,

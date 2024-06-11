@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pobe/help.dart';
 import 'package:pobe/insert_otp.dart';
 
 class ForgotPass extends StatelessWidget {
@@ -10,26 +11,39 @@ class ForgotPass extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text(
-          'Back',
-          style: TextStyle(
-              color: Color.fromRGBO(31, 54, 113, 1),
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-              fontFamily: 'Lexend'),
-        ),
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios),
-          color: const Color.fromRGBO(31, 54, 113, 1),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 30),
         child: Column(
           children: [
+            const SizedBox(
+              height: 40,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.arrow_back_ios),
+                      color: const Color.fromRGBO(31, 54, 113, 1),
+                    ),
+                    const Text(
+                      'Back',
+                      style: TextStyle(
+                        color: Color.fromRGBO(31, 54, 113, 1),
+                        fontSize: 18,
+                        fontFamily: 'Lexend',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             Image.asset(
               'assets/logo.png',
               width: 175,

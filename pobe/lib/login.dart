@@ -33,7 +33,7 @@ class _LoginState extends State<Login> {
 
   void _getCsrfToken() async {
     var response = await http.get(
-      Uri.parse('http://192.168.50.61:8000/api-auth/login/'),
+      Uri.parse('http://10.10.162.66:8000/api-auth/login/'),
     );
 
     if (response.statusCode == 200) {
@@ -50,7 +50,7 @@ class _LoginState extends State<Login> {
     var response = await http.post(
       Uri.parse(
           // 'http://10.10.162.4:8000/api-auth/login/?next=/'),
-          'http://192.168.50.61:8000/api-auth/login/'),
+          'http://10.10.162.66:8000/api-auth/login/'),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Cookie': _csrfToken,
