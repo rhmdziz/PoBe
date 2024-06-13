@@ -13,6 +13,7 @@ class _SetDestinyState extends State<SetDestiny> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.lightBlue[50],
       body: Column(
         children: [
@@ -328,15 +329,57 @@ class _SetDestinyState extends State<SetDestiny> {
             ),
           ),
           const SizedBox(
-            height: 40,
+            height: 20,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-            child: Text(
-              "Your Body Content Here",
-              style: TextStyle(
-                fontFamily: 'Lexend',
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                  decoration: const BoxDecoration(
+                      color: Color.fromRGBO(250, 135, 0, 1),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(7.5),
+                          topRight: Radius.circular(7.5))),
+                  child: const Text(
+                    'BSD Link',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontFamily: 'Lexend',
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                        topRight: Radius.circular(10)),
+                    color: Color.fromRGBO(250, 135, 0, 1),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: Image.asset(
+                              'assets/transport/bsdlink_route.png',
+                              fit: BoxFit.fill,
+                            ),
+                          ))
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],

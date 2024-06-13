@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pobe/help.dart';
 import 'package:pobe/splash/success_reg.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
