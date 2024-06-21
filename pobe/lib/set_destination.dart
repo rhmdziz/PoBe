@@ -12,8 +12,10 @@ class SetDestiny extends StatefulWidget {
 }
 
 class _SetDestinyState extends State<SetDestiny> {
-  final TextEditingController _StartPointController = TextEditingController();
-  final TextEditingController _EndPointController = TextEditingController();
+  final TextEditingController _startPointController = TextEditingController();
+  final TextEditingController _endPointController = TextEditingController();
+  final TextEditingController _fromTimeController = TextEditingController();
+  final TextEditingController _toTimeController = TextEditingController();
 
   double _scale = 1.0;
   final TransformationController _transformationController =
@@ -31,6 +33,35 @@ class _SetDestinyState extends State<SetDestiny> {
       _scale = (_scale / 1.2).clamp(1.0, 5.0);
       _transformationController.value = Matrix4.identity()..scale(_scale);
     });
+  }
+
+  Future<List<String>> _getSuggestions(String query) async {
+    final response =
+        await http.get(Uri.parse('http://192.168.50.226:8000/haltes/'));
+
+    if (response.statusCode == 200) {
+      List data = json.decode(response.body);
+      return data
+          .map((item) => item['nama_halte'] as String)
+          .where((name) => name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    } else {
+      throw Exception('Failed to load suggestions');
+    }
+  }
+
+  Future<void> _selectTime(
+      BuildContext context, TextEditingController controller) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null) {
+      final String formattedTime = picked.format(context);
+      setState(() {
+        controller.text = formattedTime;
+      });
+    }
   }
 
   @override
@@ -96,7 +127,6 @@ class _SetDestinyState extends State<SetDestiny> {
                 ),
               ),
               width: double.infinity,
-              height: 400,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 10),
@@ -141,7 +171,7 @@ class _SetDestinyState extends State<SetDestiny> {
                             ),
                             Expanded(
                               child: TypeAheadField(
-                                controller: _StartPointController,
+                                controller: _startPointController,
                                 builder: (context, controller, focusNode) =>
                                     TextField(
                                   controller: controller,
@@ -162,7 +192,7 @@ class _SetDestinyState extends State<SetDestiny> {
                                     fontSize: 16,
                                     fontFamily: 'Lexend',
                                     fontWeight: FontWeight.w400,
-                                    color: Color.fromARGB(255, 0, 130, 223),
+                                    color: Color.fromRGBO(0, 0, 0, 0.6),
                                   ),
                                 ),
                                 hideKeyboardOnDrag: true,
@@ -172,7 +202,7 @@ class _SetDestinyState extends State<SetDestiny> {
                                   );
                                 },
                                 onSelected: (suggestion) {
-                                  _StartPointController.text = suggestion;
+                                  _startPointController.text = suggestion;
                                 },
                                 suggestionsCallback: (pattern) async {
                                   return await _getSuggestions(pattern);
@@ -224,7 +254,7 @@ class _SetDestinyState extends State<SetDestiny> {
                             ),
                             Expanded(
                               child: TypeAheadField(
-                                controller: _EndPointController,
+                                controller: _endPointController,
                                 builder: (context, controller, focusNode) =>
                                     TextField(
                                   controller: controller,
@@ -245,7 +275,7 @@ class _SetDestinyState extends State<SetDestiny> {
                                     fontSize: 16,
                                     fontFamily: 'Lexend',
                                     fontWeight: FontWeight.w400,
-                                    color: Color.fromARGB(255, 0, 130, 223),
+                                    color: Color.fromRGBO(0, 0, 0, 0.6),
                                   ),
                                 ),
                                 hideKeyboardOnDrag: true,
@@ -255,7 +285,7 @@ class _SetDestinyState extends State<SetDestiny> {
                                   );
                                 },
                                 onSelected: (suggestion) {
-                                  _EndPointController.text = suggestion;
+                                  _endPointController.text = suggestion;
                                 },
                                 suggestionsCallback: (pattern) async {
                                   return await _getSuggestions(pattern);
@@ -302,22 +332,33 @@ class _SetDestinyState extends State<SetDestiny> {
                                   ),
                                 ],
                               ),
-                              child: const TextField(
-                                decoration: InputDecoration(
-                                  hintText: '--',
+                              child: TextField(
+                                controller: _fromTimeController,
+                                readOnly: true,
+                                textAlign: TextAlign.center,
+                                onTap: () =>
+                                    _selectTime(context, _fromTimeController),
+                                decoration: const InputDecoration(
+                                  hintText: '--:--',
                                   contentPadding: EdgeInsets.symmetric(
                                     horizontal: 10,
                                     vertical: 10,
                                   ),
                                   hintStyle: TextStyle(
                                     color: Color.fromARGB(255, 26, 159, 255),
-                                    fontSize: 16,
+                                    fontSize: 18,
                                     fontFamily: 'Lexend',
                                     fontWeight: FontWeight.w300,
                                   ),
                                   border: UnderlineInputBorder(
                                     borderSide: BorderSide.none,
                                   ),
+                                ),
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Lexend',
+                                  fontWeight: FontWeight.w400,
+                                  color: Color.fromRGBO(0, 0, 0, 0.6),
                                 ),
                                 keyboardType: TextInputType.datetime,
                               ),
@@ -354,22 +395,33 @@ class _SetDestinyState extends State<SetDestiny> {
                                   ),
                                 ],
                               ),
-                              child: const TextField(
-                                decoration: InputDecoration(
-                                  hintText: '--',
+                              child: TextField(
+                                controller: _toTimeController,
+                                readOnly: true,
+                                textAlign: TextAlign.center,
+                                onTap: () =>
+                                    _selectTime(context, _toTimeController),
+                                decoration: const InputDecoration(
+                                  hintText: '--:--',
                                   contentPadding: EdgeInsets.symmetric(
                                     horizontal: 10,
                                     vertical: 10,
                                   ),
                                   hintStyle: TextStyle(
                                     color: Color.fromARGB(255, 26, 159, 255),
-                                    fontSize: 16,
+                                    fontSize: 18,
                                     fontFamily: 'Lexend',
                                     fontWeight: FontWeight.w300,
                                   ),
                                   border: UnderlineInputBorder(
                                     borderSide: BorderSide.none,
                                   ),
+                                ),
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Lexend',
+                                  fontWeight: FontWeight.w400,
+                                  color: Color.fromRGBO(0, 0, 0, 0.6),
                                 ),
                                 keyboardType: TextInputType.datetime,
                               ),
@@ -488,20 +540,5 @@ class _SetDestinyState extends State<SetDestiny> {
         ),
       ),
     );
-  }
-}
-
-Future<List<String>> _getSuggestions(String query) async {
-  final response =
-      await http.get(Uri.parse('http://192.168.50.226:8000/haltes/'));
-
-  if (response.statusCode == 200) {
-    List data = json.decode(response.body);
-    return data
-        .map((item) => item['nama_halte'] as String)
-        .where((name) => name.toLowerCase().contains(query.toLowerCase()))
-        .toList();
-  } else {
-    throw Exception('Failed to load suggestions');
   }
 }
