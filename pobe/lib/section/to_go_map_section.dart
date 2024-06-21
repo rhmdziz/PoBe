@@ -38,7 +38,8 @@ class _ToGoMapsState extends State<ToGoMaps> {
       });
 
       Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+        desiredAccuracy: LocationAccuracy.high,
+      );
 
       setState(() {
         _currentPosition = position;
@@ -90,7 +91,7 @@ class _ToGoMapsState extends State<ToGoMaps> {
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
           target: _center,
-          zoom: 12.0,
+          zoom: 11.5,
         ),
         myLocationEnabled: true,
         markers: _markers,

@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
             seedColor: const Color.fromRGBO(31, 54, 113, 1)),
         useMaterial3: true,
       ),
-      // home: const TermPage(),
       home: const SplashScreenWelcome(),
     );
   }

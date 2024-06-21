@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './to_go_detail_map.dart';
+// import './to_go_detail_map.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ToGoDetailPage extends StatefulWidget {
   final Map<String, dynamic> item;
@@ -165,17 +166,35 @@ class _ToGoDetailPageState extends State<ToGoDetailPage> {
               ),
               const SizedBox(height: 16),
               TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DirectionsPage(
-                        latitude: widget.item['latitude'],
-                        longitude: widget.item['longitude'],
-                      ),
-                    ),
-                  );
+                onPressed: () async {
+                  // Dapatkan latitude dan longitude dari widget.item
+                  final double latitude = widget.item['latitude'];
+                  final double longitude = widget.item['longitude'];
+
+                  // Buat URL Google Maps untuk navigasi
+                  final url =
+                      'https://www.google.com/maps/dir/?api=1&destination=$latitude,$longitude';
+
+                  // Periksa apakah perangkat bisa membuka URL tersebut
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
+                  } else {
+                    throw 'Could not launch Google Maps.';
+                  }
                 },
+
+                // onPressed: () {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => DirectionsPage(
+                //         latitude: widget.item['latitude'],
+                //         longitude: widget.item['longitude'],
+                //       ),
+                //     ),
+                //   );
+                // },
+
                 style: ButtonStyle(
                   backgroundColor: const MaterialStatePropertyAll(
                       Color.fromRGBO(31, 54, 113, 1)),

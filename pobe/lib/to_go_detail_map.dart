@@ -9,7 +9,8 @@ class DirectionsPage extends StatefulWidget {
   final double longitude;
 
   const DirectionsPage(
-      {super.key, required this.latitude, required this.longitude});
+      {Key? key, required this.latitude, required this.longitude})
+      : super(key: key);
 
   @override
   _DirectionsPageState createState() => _DirectionsPageState();
@@ -19,6 +20,12 @@ class _DirectionsPageState extends State<DirectionsPage> {
   Completer<GoogleMapController> _controller = Completer();
   LatLng _center = const LatLng(-6.300136, 106.639061);
   Set<Polyline> _polylines = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _getDirections();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +70,7 @@ class _DirectionsPageState extends State<DirectionsPage> {
 
   Future<void> _getDirections() async {
     final String apiUrl =
-        'https://maps.googleapis.com/maps/api/directions/json?origin=${_center.latitude},${_center.longitude}&destination=${widget.latitude},${widget.longitude}&key=AIzaSyBPCsnaVHxCg8M4qCCq1s1fCzVNzEDaRNk';
+        'https://maps.googleapis.com/maps/api/directions/json?origin=${_center.latitude},${_center.longitude}&destination=${widget.latitude},${widget.longitude}&key=AIzaSyBPCsnaVHxCg8M4qCCq1s1fCzVNzEDaRNk'; // Ganti dengan kunci API Google Maps Anda
 
     final response = await http.get(Uri.parse(apiUrl));
     if (response.statusCode == 200) {
