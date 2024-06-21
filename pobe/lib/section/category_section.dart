@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'to_go.dart';
+import '../to_go.dart';
 
 class CategoriesSection extends StatelessWidget {
   const CategoriesSection({super.key});
@@ -26,11 +26,17 @@ class CategoriesSection extends StatelessWidget {
               'Food',
               'assets/category/food.png',
             ),
+            const SizedBox(
+              width: 20,
+            ),
             // SHOPPING
             _buildCategoryContainer(
               context,
               'Shopping',
               'assets/category/shopping.png',
+            ),
+            const SizedBox(
+              width: 20,
             ),
             // MALL
             _buildCategoryContainer(
@@ -40,7 +46,7 @@ class CategoriesSection extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -50,11 +56,17 @@ class CategoriesSection extends StatelessWidget {
               'Hospital',
               'assets/category/hospital.png',
             ),
+            const SizedBox(
+              width: 20,
+            ),
             // SPORT
             _buildCategoryContainer(
               context,
               'Sport',
               'assets/category/sport.png',
+            ),
+            const SizedBox(
+              width: 20,
             ),
             // ENTERTAIN
             _buildCategoryContainer(
@@ -70,37 +82,38 @@ class CategoriesSection extends StatelessWidget {
 
   Widget _buildCategoryContainer(
       BuildContext context, String category, String imagePath) {
-    return GestureDetector(
-      onTap: () => _navigateToCategory(context, category),
-      child: Container(
-        height: 120,
-        width: 100,
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(140, 201, 246, 1),
-          borderRadius: BorderRadius.circular(7.5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const SizedBox(height: 5),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              decoration: BoxDecoration(
-                color: const Color.fromRGBO(209, 235, 254, 1),
-                borderRadius: BorderRadius.circular(7.5),
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => _navigateToCategory(context, category),
+        child: Container(
+          height: 140,
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(140, 201, 246, 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(209, 235, 254, 1),
+                  borderRadius: BorderRadius.circular(7.5),
+                ),
+                child: Image.asset(imagePath),
               ),
-              child: Image.asset(imagePath),
-            ),
-            Text(
-              category,
-              style: const TextStyle(
-                color: Color.fromRGBO(31, 54, 113, 1),
-                fontSize: 15,
-                fontFamily: 'Lexend',
-                fontWeight: FontWeight.w500,
+              Text(
+                category,
+                style: const TextStyle(
+                  color: Color.fromRGBO(31, 54, 113, 1),
+                  fontSize: 18,
+                  fontFamily: 'Lexend',
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

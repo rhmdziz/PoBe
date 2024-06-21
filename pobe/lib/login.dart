@@ -18,6 +18,7 @@ class _LoginState extends State<Login> {
   late String _csrfToken = '';
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -33,7 +34,7 @@ class _LoginState extends State<Login> {
 
   void _getCsrfToken() async {
     var response = await http.get(
-      Uri.parse('http://10.10.162.66:8000/api-auth/login/'),
+      Uri.parse('http://192.168.50.226:8000/api-auth/login/'),
     );
 
     if (response.statusCode == 200) {
@@ -47,10 +48,14 @@ class _LoginState extends State<Login> {
     String username = _usernameController.text;
     String password = _passwordController.text;
 
+    setState(() {
+      _isLoading = true;
+    });
+
     var response = await http.post(
       Uri.parse(
           // 'http://10.10.162.4:8000/api-auth/login/?next=/'),
-          'http://10.10.162.66:8000/api-auth/login/'),
+          'http://192.168.50.226:8000/api-auth/login/'),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Cookie': _csrfToken,
@@ -63,6 +68,10 @@ class _LoginState extends State<Login> {
     );
 
     print(response.statusCode);
+
+    setState(() {
+      _isLoading = false;
+    });
 
     if (response.statusCode == 302) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -79,7 +88,6 @@ class _LoginState extends State<Login> {
   }
 
   String _extractCsrfToken() {
-    // Ekstrak token CSRF dari string header Cookie
     return _csrfToken.split(';')[0].split('=')[1];
   }
 
@@ -104,7 +112,7 @@ class _LoginState extends State<Login> {
                   fillColor: Color.fromRGBO(80, 137, 198, 0.22),
                   labelStyle: TextStyle(
                     color: Color.fromRGBO(31, 54, 113, 1),
-                    fontSize: 14,
+                    fontSize: 16,
                     fontFamily: 'Lexend',
                     fontWeight: FontWeight.w300,
                   ),
@@ -128,7 +136,7 @@ class _LoginState extends State<Login> {
                   fillColor: const Color.fromRGBO(80, 137, 198, 0.22),
                   labelStyle: const TextStyle(
                     color: Color.fromRGBO(31, 54, 113, 1),
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.w300,
                     fontFamily: 'Lexend',
                   ),
@@ -163,15 +171,18 @@ class _LoginState extends State<Login> {
                     'Forgot Password?',
                     style: TextStyle(
                         color: Color.fromRGBO(80, 137, 198, 0.75),
-                        fontSize: 12,
+                        fontSize: 14,
                         fontFamily: 'Lexend'),
                   ),
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  _login(_usernameController.text, _passwordController.text);
-                },
+                onPressed: _isLoading
+                    ? null
+                    : () {
+                        _login(
+                            _usernameController.text, _passwordController.text);
+                      },
                 style: ButtonStyle(
                   backgroundColor: const MaterialStatePropertyAll(
                       Color.fromRGBO(31, 54, 113, 1)),
@@ -180,14 +191,18 @@ class _LoginState extends State<Login> {
                   minimumSize:
                       const MaterialStatePropertyAll(Size(double.infinity, 50)),
                 ),
-                child: const Text(
-                  'Login',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontFamily: 'Lexend',
-                  ),
-                ),
+                child: _isLoading
+                    ? const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      )
+                    : const Text(
+                        'Login',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'Lexend',
+                        ),
+                      ),
               ),
               const SizedBox(
                 height: 20,
@@ -226,20 +241,20 @@ class _LoginState extends State<Login> {
                     backgroundColor: const MaterialStatePropertyAll(
                         Color.fromRGBO(0, 0, 0, 0.09))),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
                       'assets/logo_google.png',
-                      width: 24,
-                      height: 24,
+                      width: 30,
+                      height: 30,
                     ),
                     const SizedBox(width: 8),
                     const Text(
                       'Continue with Google Account',
                       style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Lexend',
-                      ),
+                          color: Colors.black,
+                          fontFamily: 'Lexend',
+                          fontSize: 16),
                     ),
                   ],
                 ),
@@ -252,7 +267,7 @@ class _LoginState extends State<Login> {
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w300,
-                        fontSize: 12,
+                        fontSize: 14,
                         fontFamily: 'Lexend'),
                   ),
                   TextButton(
@@ -269,7 +284,7 @@ class _LoginState extends State<Login> {
                       style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.normal,
-                          fontSize: 12,
+                          fontSize: 14,
                           fontFamily: 'Lexend'),
                     ),
                   ),

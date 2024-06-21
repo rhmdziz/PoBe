@@ -36,7 +36,7 @@ class InsertOtp extends StatelessWidget {
                 'We have sent OTP code to $displayEmailOrUsername',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 16,
                   fontFamily: 'Lexend',
                 ),
               ),
@@ -53,7 +53,7 @@ class InsertOtp extends StatelessWidget {
                       maxLength: 1,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 20,
                         fontFamily: 'Lexend',
                       ),
                       decoration: const InputDecoration(
@@ -78,7 +78,7 @@ class InsertOtp extends StatelessWidget {
               ),
               const Text(
                 '45 seconds before the current OTP code couldn’t be used',
-                style: TextStyle(fontSize: 12, color: Colors.black54),
+                style: TextStyle(fontSize: 14, color: Colors.black54),
               ),
               const SizedBox(
                 height: 20,
@@ -101,7 +101,7 @@ class InsertOtp extends StatelessWidget {
                   'Confirm',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 18,
                     fontFamily: 'Lexend',
                   ),
                 ),

@@ -17,6 +17,7 @@ class _RegistState extends State<Regist> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
+  bool _isLoading = false;
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -25,7 +26,11 @@ class _RegistState extends State<Regist> {
   }
 
   Future<void> _registerUser() async {
-    final url = Uri.parse('http://10.10.162.66:8000/api/signup/');
+    setState(() {
+      _isLoading = true;
+    });
+
+    final url = Uri.parse('http://192.168.50.226:8000/api/signup/');
     final response = await http.post(
       url,
       body: json.encode({
@@ -35,6 +40,11 @@ class _RegistState extends State<Regist> {
       }),
       headers: {'Content-Type': 'application/json'},
     );
+
+    setState(() {
+      _isLoading = false;
+    });
+
     if (response.statusCode == 200) {
       Navigator.push(
         context,
@@ -99,7 +109,7 @@ class _RegistState extends State<Regist> {
                 fillColor: Color.fromRGBO(80, 137, 198, 0.22),
                 labelStyle: TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
-                  fontSize: 14,
+                  fontSize: 16,
                   fontFamily: 'Lexend',
                   fontWeight: FontWeight.w300,
                 ),
@@ -122,7 +132,7 @@ class _RegistState extends State<Regist> {
                 fillColor: Color.fromRGBO(80, 137, 198, 0.22),
                 labelStyle: TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
-                  fontSize: 14,
+                  fontSize: 16,
                   fontFamily: 'Lexend',
                   fontWeight: FontWeight.w300,
                 ),
@@ -146,7 +156,7 @@ class _RegistState extends State<Regist> {
                 fillColor: const Color.fromRGBO(80, 137, 198, 0.22),
                 labelStyle: const TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: FontWeight.w300,
                   fontFamily: 'Lexend',
                 ),
@@ -177,7 +187,7 @@ class _RegistState extends State<Regist> {
                 fillColor: const Color.fromRGBO(80, 137, 198, 0.22),
                 labelStyle: const TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: FontWeight.w300,
                   fontFamily: 'Lexend',
                 ),
@@ -201,7 +211,7 @@ class _RegistState extends State<Regist> {
               height: 30,
             ),
             TextButton(
-              onPressed: _registerUser,
+              onPressed: _isLoading ? null : _registerUser,
               style: ButtonStyle(
                 backgroundColor: const MaterialStatePropertyAll(
                     Color.fromRGBO(31, 54, 113, 1)),
@@ -210,14 +220,18 @@ class _RegistState extends State<Regist> {
                 minimumSize:
                     const MaterialStatePropertyAll(Size(double.infinity, 50)),
               ),
-              child: const Text(
-                'Register a New Account',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Lexend',
-                  fontSize: 16,
-                ),
-              ),
+              child: _isLoading
+                  ? const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    )
+                  : const Text(
+                      'Register a New Account',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Lexend',
+                        fontSize: 18,
+                      ),
+                    ),
             ),
             const SizedBox(
               height: 20,
@@ -256,12 +270,12 @@ class _RegistState extends State<Regist> {
                   backgroundColor: const MaterialStatePropertyAll(
                       Color.fromRGBO(0, 0, 0, 0.09))),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/logo_google.png', // Ganti dengan path gambar logo Google Anda
-                    width: 24, // Sesuaikan dengan ukuran logo Google
-                    height: 24, // Sesuaikan dengan ukuran logo Google
+                    'assets/logo_google.png',
+                    width: 30,
+                    height: 30,
                   ),
                   const SizedBox(width: 8), // Jarak antara logo dan teks
                   const Text(
@@ -269,6 +283,7 @@ class _RegistState extends State<Regist> {
                     style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'Lexend',
+                      fontSize: 16,
                     ),
                   ),
                 ],

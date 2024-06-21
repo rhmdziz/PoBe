@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 operational_hour_list = [
         ('08:00 - 16:00 WIB','08:00 - 16:00 WIB'),
         ('08:00 - 22:00 WIB','08:00 - 22:00 WIB'),

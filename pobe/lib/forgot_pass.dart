@@ -52,7 +52,7 @@ class ForgotPass extends StatelessWidget {
               'Forgot Password',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 20,
+                fontSize: 24,
                 fontFamily: 'Lexend',
                 fontWeight: FontWeight.w500,
               ),
@@ -67,7 +67,7 @@ class ForgotPass extends StatelessWidget {
                 fillColor: Color.fromRGBO(80, 137, 198, 0.22),
                 labelStyle: TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
-                  fontSize: 14,
+                  fontSize: 16,
                   fontFamily: 'Lexend',
                   fontWeight: FontWeight.w300,
                 ),
@@ -107,7 +107,7 @@ class ForgotPass extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Lexend',
-                  fontSize: 16,
+                  fontSize: 18,
                 ),
               ),
             ),

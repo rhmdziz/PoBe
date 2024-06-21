@@ -5,7 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:pobe/location_service.dart';
+import 'package:pobe/service/location_service.dart';
 
 class ToGoMaps extends StatefulWidget {
   final String apiUrl;
@@ -83,7 +83,7 @@ class _ToGoMapsState extends State<ToGoMaps> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 500,
       width: double.infinity,
       child: GoogleMap(

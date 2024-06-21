@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pobe/help.dart';
-import 'package:pobe/to_go_map_section.dart';
+import 'package:pobe/section/to_go_map_section.dart';
 import 'package:pobe/to_go_detail.dart';
-import './to_go_service.dart';
+import 'service/to_go_service.dart';
 
 class ToGo extends StatefulWidget {
   final String category;
@@ -15,17 +15,19 @@ class ToGo extends StatefulWidget {
 
 class _ToGoState extends State<ToGo> {
   late Future<List<dynamic>> futureCategoryData;
+  late String apiUrl;
 
   @override
   void initState() {
     super.initState();
-    futureCategoryData = ApiService().fetchCategoryData(widget.category);
+    final apiService = ApiService();
+    apiUrl =
+        '${apiService.baseUrl}${apiService.endpoints[widget.category] ?? ''}';
+    futureCategoryData = apiService.fetchCategoryData(widget.category);
   }
 
   @override
   Widget build(BuildContext context) {
-    final apiUrl = ApiService().categoryUrls[widget.category] ?? '';
-
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

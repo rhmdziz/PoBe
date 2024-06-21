@@ -46,7 +46,7 @@ class _NewPassState extends State<NewPass> {
                 fillColor: Color.fromRGBO(80, 137, 198, 0.22),
                 labelStyle: TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
-                  fontSize: 14,
+                  fontSize: 16,
                   fontFamily: 'Lexend',
                   fontWeight: FontWeight.w300,
                 ),
@@ -69,7 +69,7 @@ class _NewPassState extends State<NewPass> {
                 fillColor: const Color.fromRGBO(80, 137, 198, 0.22),
                 labelStyle: const TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: FontWeight.w300,
                   fontFamily: 'Lexend',
                 ),
@@ -99,7 +99,7 @@ class _NewPassState extends State<NewPass> {
                 fillColor: const Color.fromRGBO(80, 137, 198, 0.22),
                 labelStyle: const TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: FontWeight.w300,
                   fontFamily: 'Lexend',
                 ),
@@ -144,7 +144,7 @@ class _NewPassState extends State<NewPass> {
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Lexend',
-                  fontSize: 16,
+                  fontSize: 18,
                 ),
               ),
             ),

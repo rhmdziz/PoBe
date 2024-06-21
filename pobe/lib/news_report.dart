@@ -18,6 +18,7 @@ class NewsReportPage extends StatefulWidget {
 class _NewsReportPageState extends State<NewsReportPage> {
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
+  bool _isLoading = false;
 
   File? _image;
   bool _isChecked = false;
@@ -36,9 +37,13 @@ class _NewsReportPageState extends State<NewsReportPage> {
   }
 
   Future<void> sendData(String title, String content, File? imageFile) async {
+    setState(() {
+      _isLoading = true;
+    });
+
     try {
       // var url = Uri.parse('http://10.10.161.232:8000/newss/');
-      var url = Uri.parse('http://10.10.162.66:8000/newss/');
+      var url = Uri.parse('http://192.168.50.226:8000/newss/');
       // var url = Uri.parse('http://10.10.162.4:8000/newss/');
       var request = http.MultipartRequest('POST', url);
       request.fields['title'] = title;
@@ -53,6 +58,9 @@ class _NewsReportPageState extends State<NewsReportPage> {
       }
       var response = await http.Response.fromStream(await request.send());
       print(response.statusCode);
+      setState(() {
+        _isLoading = false;
+      });
 
       if (response.statusCode == 201) {
         Navigator.pushReplacement(
@@ -315,9 +323,12 @@ class _NewsReportPageState extends State<NewsReportPage> {
               height: 20,
             ),
             TextButton(
-              onPressed: () {
-                _report(titleController.text, contentController.text, _image);
-              },
+              onPressed: _isLoading
+                  ? null
+                  : () {
+                      _report(
+                          titleController.text, contentController.text, _image);
+                    },
               style: ButtonStyle(
                 backgroundColor: const MaterialStatePropertyAll(
                     Color.fromRGBO(31, 54, 113, 1)),
@@ -326,14 +337,18 @@ class _NewsReportPageState extends State<NewsReportPage> {
                 minimumSize:
                     const MaterialStatePropertyAll(Size(double.infinity, 50)),
               ),
-              child: const Text(
-                'Send',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Lexend',
-                  fontSize: 16,
-                ),
-              ),
+              child: _isLoading
+                  ? const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    )
+                  : const Text(
+                      'Send',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Lexend',
+                        fontSize: 16,
+                      ),
+                    ),
             ),
           ],
         ),

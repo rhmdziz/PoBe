@@ -25,7 +25,6 @@ class AQIResponse {
 }
 
 class ApiService {
-  // final String baseUrl = 'https://api.waqi.info/feed/here/';
   final String baseUrl = 'https://api.waqi.info/feed/A416785/';
   final String token = '9f59127ff5cd375ecfd300353d1e7e5bbf73ce2f';
 
@@ -58,7 +57,13 @@ class _AqiSectionState extends State<AqiSection> {
   @override
   void initState() {
     super.initState();
-    futureAQI = ApiService().fetchAQI();
+    _fetchAQIData();
+  }
+
+  Future<void> _fetchAQIData() async {
+    setState(() {
+      futureAQI = ApiService().fetchAQI();
+    });
   }
 
   Color _getColorForAQI(int aqi) {
@@ -120,77 +125,78 @@ class _AqiSectionState extends State<AqiSection> {
                 color: containerColor,
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      color: const Color.fromRGBO(0, 0, 0, 0.075),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('assets/aqi/mask.png'),
-                          Text(
-                            status,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Colors.black87,
-                              fontSize: 16,
-                              fontFamily: 'Lexend',
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: Container(
-                      width: 190,
-                      decoration: const BoxDecoration(
-                        color: Color.fromRGBO(255, 255, 255, 0.15),
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(5),
-                            bottomRight: Radius.circular(5)),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting)
-                            const CircularProgressIndicator()
-                          else if (snapshot.hasError)
-                            Text('Error: ${snapshot.error}')
-                          else if (snapshot.hasData)
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        width: 150,
+                        height: 150,
+                        color: const Color.fromRGBO(0, 0, 0, 0.075),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset('assets/aqi/mask.png'),
                             Text(
-                              '$aqi',
+                              status,
+                              textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: Colors.black87,
-                                fontSize: 46,
+                                fontSize: 16,
+                                fontFamily: 'Lexend',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        width: 190,
+                        decoration: const BoxDecoration(
+                          color: Color.fromRGBO(255, 255, 255, 0.15),
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(5),
+                              bottomRight: Radius.circular(5)),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting)
+                              const CircularProgressIndicator()
+                            else if (snapshot.hasError)
+                              Text('Error: ${snapshot.error}')
+                            else if (snapshot.hasData)
+                              Text(
+                                '$aqi',
+                                style: const TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 46,
+                                  // fontFamily: 'Lexend',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )
+                            else
+                              const Text('No data'),
+                            const Text(
+                              'AQI',
+                              style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 16,
                                 // fontFamily: 'Lexend',
                                 fontWeight: FontWeight.w600,
                               ),
-                            )
-                          else
-                            const Text('No data'),
-                          const Text(
-                            'AQI',
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 16,
-                              // fontFamily: 'Lexend',
-                              fontWeight: FontWeight.w600,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             const SizedBox(
