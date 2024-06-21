@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pobe/help.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class SetDestiny extends StatefulWidget {
   const SetDestiny({super.key});
@@ -9,6 +12,9 @@ class SetDestiny extends StatefulWidget {
 }
 
 class _SetDestinyState extends State<SetDestiny> {
+  final TextEditingController _StartPointController = TextEditingController();
+  final TextEditingController _EndPointController = TextEditingController();
+
   double _scale = 1.0;
   final TransformationController _transformationController =
       TransformationController();
@@ -133,19 +139,44 @@ class _SetDestinyState extends State<SetDestiny> {
                             const SizedBox(
                               width: 15,
                             ),
-                            const Expanded(
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'Starting Point ...',
-                                  hintStyle: TextStyle(
-                                    color: Color.fromARGB(255, 26, 159, 255),
+                            Expanded(
+                              child: TypeAheadField(
+                                controller: _StartPointController,
+                                builder: (context, controller, focusNode) =>
+                                    TextField(
+                                  controller: controller,
+                                  focusNode: focusNode,
+                                  decoration: const InputDecoration(
+                                    border: UnderlineInputBorder(
+                                        borderSide: BorderSide.none),
+                                    hintText: 'Starting Point ...',
+                                    hintStyle: TextStyle(
+                                      color: Color.fromARGB(255, 26, 159, 255),
+                                      fontSize: 16,
+                                      fontFamily: 'Lexend',
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                  textAlignVertical: TextAlignVertical.center,
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Lexend',
-                                    fontWeight: FontWeight.w300,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromARGB(255, 0, 130, 223),
                                   ),
-                                  border: UnderlineInputBorder(
-                                      borderSide: BorderSide.none),
                                 ),
+                                hideKeyboardOnDrag: true,
+                                itemBuilder: (context, suggestion) {
+                                  return ListTile(
+                                    title: Text(suggestion),
+                                  );
+                                },
+                                onSelected: (suggestion) {
+                                  _StartPointController.text = suggestion;
+                                },
+                                suggestionsCallback: (pattern) async {
+                                  return await _getSuggestions(pattern);
+                                },
                               ),
                             )
                           ],
@@ -191,19 +222,44 @@ class _SetDestinyState extends State<SetDestiny> {
                             const SizedBox(
                               width: 15,
                             ),
-                            const Expanded(
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'End Point ...',
-                                  hintStyle: TextStyle(
-                                    color: Color.fromARGB(255, 26, 159, 255),
+                            Expanded(
+                              child: TypeAheadField(
+                                controller: _EndPointController,
+                                builder: (context, controller, focusNode) =>
+                                    TextField(
+                                  controller: controller,
+                                  focusNode: focusNode,
+                                  decoration: const InputDecoration(
+                                    border: UnderlineInputBorder(
+                                        borderSide: BorderSide.none),
+                                    hintText: 'End Point ...',
+                                    hintStyle: TextStyle(
+                                      color: Color.fromARGB(255, 26, 159, 255),
+                                      fontSize: 16,
+                                      fontFamily: 'Lexend',
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                  textAlignVertical: TextAlignVertical.center,
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Lexend',
-                                    fontWeight: FontWeight.w300,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromARGB(255, 0, 130, 223),
                                   ),
-                                  border: UnderlineInputBorder(
-                                      borderSide: BorderSide.none),
                                 ),
+                                hideKeyboardOnDrag: true,
+                                itemBuilder: (context, suggestion) {
+                                  return ListTile(
+                                    title: Text(suggestion),
+                                  );
+                                },
+                                onSelected: (suggestion) {
+                                  _EndPointController.text = suggestion;
+                                },
+                                suggestionsCallback: (pattern) async {
+                                  return await _getSuggestions(pattern);
+                                },
                               ),
                             )
                           ],
@@ -432,5 +488,20 @@ class _SetDestinyState extends State<SetDestiny> {
         ),
       ),
     );
+  }
+}
+
+Future<List<String>> _getSuggestions(String query) async {
+  final response =
+      await http.get(Uri.parse('http://192.168.50.226:8000/haltes/'));
+
+  if (response.statusCode == 200) {
+    List data = json.decode(response.body);
+    return data
+        .map((item) => item['nama_halte'] as String)
+        .where((name) => name.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+  } else {
+    throw Exception('Failed to load suggestions');
   }
 }

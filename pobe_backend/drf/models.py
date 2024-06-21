@@ -243,6 +243,10 @@ class BusRoute(models.Model):
 
 class Halte(models.Model):
     nama_halte = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        ordering = ['nama_halte']
+
     def __str__(self):
         return self.nama_halte
 
