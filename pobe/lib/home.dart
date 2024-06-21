@@ -245,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(15),
+                            padding: const EdgeInsets.all(10),
                             child: Row(
                               children: [
                                 Expanded(
@@ -270,7 +270,7 @@ class _HomePageState extends State<HomePage> {
                                           "add a destination",
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontFamily: 'Lexend',
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -292,7 +292,7 @@ class _HomePageState extends State<HomePage> {
                                         "AEON - The Breeze",
                                         style: TextStyle(
                                           color: Color.fromRGBO(31, 54, 113, 1),
-                                          fontSize: 16,
+                                          fontSize: 14,
                                           fontFamily: 'Lexend',
                                           fontWeight: FontWeight.bold,
                                         ),

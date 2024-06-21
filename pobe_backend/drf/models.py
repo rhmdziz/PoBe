@@ -176,4 +176,91 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+
+# halte_list_bus_1 = [
+#     ('Intermoda', 'Intermoda'),
+#     ('Cosmo', 'Cosmo'),
+#     ('Verdant View', 'Verdant View'),
+#     ('Eternity', 'Eternity'),
+#     ('Simplicity 2', 'Simplicity 2'),
+#     ('Edutown 1', 'Edutown 1'),
+#     ('Edutown 2', 'Edutown 2'),
+#     ('ICE 1', 'ICE 1'),
+#     ('ICE 2', 'ICE 2'),
+#     ('ICE 6', 'ICE 6'),
+#     ('ICE 5', 'ICE 5'),
+#     ('GOP 1', 'GOP 1'),
+#     ('SML Plaza', 'SML Plaza'),
+#     ('The Breeze', 'The Breeze'),
+#     ('CBD Timur 1', 'CBD Timur 1'),
+#     ('CBD Timur 2', 'CBD Timur 2'),
+#     ('Nava Park 1', 'Nava Park 1'),
+#     ('SWA 1', 'SWA 1'),
+#     ('Giant', 'Giant'),
+#     ('Eka Hospital 1', 'Eka Hospital 1'),
+#     ('Puspita Loka', 'Puspita Loka'),
+#     ('Polsek Serpong', 'Polsek Serpong'),
+#     ('Ruko Madrid', 'Ruko Madrid'),
+#     ('Pasmod Timur', 'Pasmod Timur'),
+#     ('Griyaloka 1', 'Griyaloka 1'),
+#     ('Sektor 1.3', 'Sektor 1.3'),
+#     ('Griyaloka 2', 'Griyaloka 2'),
+#     ('Santa Ursula 1', 'Santa Ursula 1'),
+#     ('Santa Ursula 2', 'Santa Ursula 2'),
+#     ('Sentra Onderdil', 'Sentra Onderdil'),
+#     ('Autopart 5', 'Autopart 5'),
+#     ('Eka Hospital 2', 'Eka Hospital 2'),
+#     ('Eat Bussiness District', 'Eat Bussiness District'),
+#     ('SWA 1', 'SWA 1'),
+#     ('Green Cove', 'Green Cove'),
+#     ('The Breeze', 'The Breeze'),
+#     ('CBD Timur 1', 'CBD Timur 1'),
+#     ('Aeon Mall 1', 'Aeon Mall 1'),
+#     ('CBD Barat 2', 'CBD Barat 2'),
+#     ('Simplicity 1', 'Simplicity 1'),
+#     ('Cosmo', 'Cosmo'),
+#     ('Verdant View', 'Verdant View'),
+#     ('Eternity', 'Eternity'),
+#     ('Intermoda', 'Intermoda'),
+#     ('Icon Business Park', 'Icon Business Park'),
+#     ('Masjid Al Ukhuwa', 'Masjid Al Ukhuwa'),
+#     ('Divena & Deshna', 'Divena & Deshna'),
+#     ('The Avani Club House', 'The Avani Club House'),
+#     ('Ammarilla', 'Ammarilla'),
+#     ('Chandnya', 'Chandnya'),
+#     ('Atmajaya', 'Atmajaya'),
+#     ('Intermoda', 'Intermoda'),
+# ]
+
+# models.py
+
+class BusRoute(models.Model):
+    nama_rute = models.CharField(max_length=100)
+    def __str__(self):
+        return self.nama_rute
+
+class Halte(models.Model):
+    nama_halte = models.CharField(max_length=100, unique=True)
+    def __str__(self):
+        return self.nama_halte
+
+class BusSchedule(models.Model):
+    rute = models.ForeignKey(BusRoute, related_name='rute', on_delete=models.CASCADE)
+    nomor_bis = models.IntegerField()
+    halte = models.ForeignKey(Halte, on_delete=models.CASCADE)
+    waktu_1 = models.TimeField(blank=True, null=True)
+    waktu_2 = models.TimeField(blank=True, null=True)
+    waktu_3 = models.TimeField(blank=True, null=True)
+    waktu_4 = models.TimeField(blank=True, null=True)
+    waktu_5 = models.TimeField(blank=True, null=True)
+    waktu_6 = models.TimeField(blank=True, null=True)
+    waktu_7 = models.TimeField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['nomor_bis']
+
+    def __str__(self):
+        return f"{self.rute.nama_rute} ({self.halte.nama_halte})"
 

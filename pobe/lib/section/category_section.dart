@@ -107,7 +107,7 @@ class CategoriesSection extends StatelessWidget {
                 category,
                 style: const TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
-                  fontSize: 18,
+                  fontSize: 16,
                   fontFamily: 'Lexend',
                   fontWeight: FontWeight.w500,
                 ),

@@ -87,6 +87,34 @@ class NewsViewSet(viewsets.ModelViewSet):
     queryset = models.News.objects.all()
     serializer_class = NewsSerializer
 
+class BusRouteSerializer(serializers.ModelSerializer):
+    rute = serializers.StringRelatedField(many=True)
+    class Meta:
+        model = models.BusRoute
+        fields = '__all__'
+        
+class BusRouteViewSet(viewsets.ModelViewSet):
+    queryset = models.BusRoute.objects.all()
+    serializer_class = BusRouteSerializer
+
+class HalteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Halte
+        fields = '__all__'
+class HalteViewSet(viewsets.ModelViewSet):
+    queryset = models.Halte.objects.all()
+    serializer_class = HalteSerializer
+
+class BusScheduleSerializer(serializers.HyperlinkedModelSerializer):
+    rute = serializers.PrimaryKeyRelatedField(queryset=models.BusRoute.objects.all())
+    halte = serializers.PrimaryKeyRelatedField(queryset=models.Halte.objects.all())
+    class Meta:
+        model = models.BusSchedule
+        fields = '__all__'
+class BusScheduleViewSet(viewsets.ModelViewSet):
+    queryset = models.BusSchedule.objects.all()
+    serializer_class = BusScheduleSerializer
+
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'foods', FoodViewSet)
@@ -96,6 +124,9 @@ router.register(r'hospitals', HospitalViewSet)
 router.register(r'malls', MallViewSet)
 router.register(r'shoppings', ShoppingViewSet)
 router.register(r'newss', NewsViewSet)
+router.register(r'haltes', HalteViewSet)
+router.register(r'busroutes', BusRouteViewSet)
+router.register(r'busscheduls', BusScheduleViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
