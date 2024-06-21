@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pobe/help.dart';
 import './news_list.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 class NewsDetailPage extends StatelessWidget {
   final News news;
@@ -62,16 +63,19 @@ class NewsDetailPage extends StatelessWidget {
                 news.title,
                 style: const TextStyle(
                   color: Color.fromRGBO(0, 0, 0, 1),
-                  fontSize: 20,
+                  fontSize: 26,
                   fontFamily: 'Lexend',
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
               Text(
-                '${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(news.datetime))} WIB',
+                '${DateFormat('EEEE').format(DateTime.parse(news.datetime))} ${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(news.datetime))} WIB',
                 style: const TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 0.59),
-                  fontSize: 13,
+                  fontSize: 16,
                   fontFamily: 'Lexend',
                   fontWeight: FontWeight.w600,
                 ),
@@ -91,13 +95,11 @@ class NewsDetailPage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Text(
+              HtmlWidget(
                 news.content,
-                style: const TextStyle(
-                  color: Color.fromRGBO(0, 0, 0, 1),
-                  fontSize: 15,
-                  fontFamily: 'Lexend',
-                  fontWeight: FontWeight.w400,
+                textStyle: const TextStyle(
+                  fontSize: 18,
+                  color: Color.fromRGBO(50, 50, 50, 1),
                 ),
               ),
               const SizedBox(
@@ -107,36 +109,37 @@ class NewsDetailPage extends StatelessWidget {
                 'by ${news.author}',
                 style: const TextStyle(
                   color: Color.fromRGBO(0, 0, 0, 0.65),
-                  fontSize: 15,
+                  fontSize: 18,
                   fontFamily: 'Lexend',
                   fontWeight: FontWeight.w400,
                 ),
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset('assets/news/view.png'),
+                  const SizedBox(
+                    width: 5,
+                  ),
                   Text(
                     news.views,
                     style: const TextStyle(
                       color: Color.fromRGBO(0, 0, 0, 0.65),
-                      fontSize: 15,
+                      fontSize: 18,
                       fontFamily: 'Lexend',
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Image.asset('assets/news/up.png'),
-                  Text(
-                    news.up,
-                    style: const TextStyle(
-                      color: Color.fromRGBO(0, 0, 0, 0.65),
-                      fontSize: 15,
-                      fontFamily: 'Lexend',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
+                  // Image.asset('assets/news/up.png'),
+                  // Text(
+                  //   news.up,
+                  //   style: const TextStyle(
+                  //     color: Color.fromRGBO(0, 0, 0, 0.65),
+                  //     fontSize: 15,
+                  //     fontFamily: 'Lexend',
+                  //     fontWeight: FontWeight.w400,
+                  //   ),
+                  // ),
                 ],
               ),
               const SizedBox(

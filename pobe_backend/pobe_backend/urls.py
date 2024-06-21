@@ -87,14 +87,6 @@ class NewsViewSet(viewsets.ModelViewSet):
     queryset = models.News.objects.all()
     serializer_class = NewsSerializer
 
-class CommentNewsSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = models.CommentNews
-        fields = '__all__'
-class CommentNewsViewSet(viewsets.ModelViewSet):
-    queryset = models.CommentNews.objects.all()
-    serializer_class = CommentNewsSerializer
-
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'foods', FoodViewSet)
@@ -104,11 +96,11 @@ router.register(r'hospitals', HospitalViewSet)
 router.register(r'malls', MallViewSet)
 router.register(r'shoppings', ShoppingViewSet)
 router.register(r'newss', NewsViewSet)
-router.register(r'commentnewss', CommentNewsViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
     path('api/', include('drf.urls', namespace='drf')),
     path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

@@ -1,4 +1,5 @@
 from django.db import models
+from django_ckeditor_5.fields import CKEditor5Field
 
 operational_hour_list = [
         ('08:00 - 16:00 WIB','08:00 - 16:00 WIB'),
@@ -167,19 +168,12 @@ class News(models.Model):
     id = models.AutoField(primary_key=True)
     datetime = models.DateTimeField(auto_now=True)
     author = models.CharField(max_length=40, default='Azhira')
-    content = models.CharField(max_length=3000)
+    content = CKEditor5Field('Content', config_name='extends')
     title = models.CharField(max_length=100, default='Title')
     views = models.CharField(max_length=10, default=0)
     up = models.CharField(max_length=10, default=0)
     image = models.ImageField(blank=True)
 
     def __str__(self):
-        return self.name
-
-class CommentNews(models.Model):
-    id = models.AutoField(primary_key=True)
-    news_id = models.ForeignKey(News, on_delete=models.CASCADE)
-    datetime = models.DateTimeField(auto_now=True)
-    content = models.CharField(max_length=200)
-    avatar = models.ImageField(blank=True)
+        return self.title
 
