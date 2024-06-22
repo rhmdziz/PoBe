@@ -163,6 +163,14 @@ class Shopping(models.Model):
         return self.name
     
 
+news_category_list = [
+    ('Umum', 'Umum'),
+    ('Lifestyle', 'Lifestyle'),
+    ('Sport', 'Sport'),
+    ('Politic', 'Politic'),
+    ('Health', 'Health'),
+]
+
 # NEWSS
 class News(models.Model):
     id = models.AutoField(primary_key=True)
@@ -170,6 +178,7 @@ class News(models.Model):
     author = models.CharField(max_length=40, default='Azhira')
     content = CKEditor5Field('Content', config_name='extends')
     title = models.CharField(max_length=100, default='Title')
+    category = models.CharField(max_length=40, blank=True, null=True, choices=news_category_list)
     views = models.CharField(max_length=10, default=0)
     up = models.CharField(max_length=10, default=0)
     image = models.ImageField(blank=True)

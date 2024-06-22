@@ -16,6 +16,7 @@ class News {
   final String views;
   final String up;
   final String image;
+  final String category;
 
   News({
     required this.url,
@@ -26,6 +27,7 @@ class News {
     required this.views,
     required this.up,
     required this.image,
+    required this.category,
   });
   factory News.fromJson(Map<String, dynamic> json) {
     return News(
@@ -37,6 +39,7 @@ class News {
       views: json['views'],
       up: json['up'],
       image: json['image'],
+      category: json['category'],
     );
   }
 }
@@ -49,7 +52,7 @@ class NewsListPage extends StatefulWidget {
 }
 
 class _NewsListPageState extends State<NewsListPage> {
-  String selectedTab = 'Latest';
+  String selectedTab = 'Trending';
 
   void onTabTap(String tab) {
     setState(() {
@@ -67,10 +70,7 @@ class _NewsListPageState extends State<NewsListPage> {
   Future<List<News>> fetchNews() async {
     final response =
         await http.get(Uri.parse('http://192.168.50.226:8000/newss/'));
-    // await http.get(Uri.parse('http://10.10.162.4:8000/newss/'));
-    // http://192.168.50.61:8000/newss/
-    // await http.get(Uri.parse('http://10.10.161.232:8000/newss/'));
-    // print(response.body);
+
     print(response.statusCode);
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
@@ -79,6 +79,25 @@ class _NewsListPageState extends State<NewsListPage> {
     } else {
       throw Exception('Failed to load data');
     }
+  }
+
+  List<News> filterNews(List<News> newsList) {
+    List<News> filteredNews;
+    if (selectedTab == 'Latest') {
+      filteredNews = List.from(newsList);
+      filteredNews.sort((a, b) =>
+          DateTime.parse(b.datetime).compareTo(DateTime.parse(a.datetime)));
+    } else if (selectedTab == 'Trending') {
+      filteredNews = List.from(newsList);
+      filteredNews
+          .sort((a, b) => int.parse(b.views).compareTo(int.parse(a.views)));
+    } else {
+      filteredNews = newsList
+          .where((news) =>
+              news.category.toLowerCase() == selectedTab.toLowerCase())
+          .toList();
+    }
+    return filteredNews;
   }
 
   @override
@@ -247,19 +266,39 @@ class _NewsListPageState extends State<NewsListPage> {
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           // TABS
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildTab('Latest'),
-                buildTab('Trending'),
-                buildTab('Politic'),
-                buildTab('Pop'),
-              ],
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 10),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  buildTab('Trending'),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  buildTab('Latest'),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  buildTab('Lifestyle'),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  buildTab('Politic'),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  buildTab('Health'),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  buildTab('Sport'),
+                ],
+              ),
             ),
           ),
           // NEWS LIST
@@ -276,10 +315,12 @@ class _NewsListPageState extends State<NewsListPage> {
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     return const Center(child: Text('No news available'));
                   } else {
+                    List<News> filteredNews = filterNews(snapshot.data!);
                     return ListView.builder(
-                      itemCount: snapshot.data!.length,
+                      padding: EdgeInsets.zero,
+                      itemCount: filteredNews.length,
                       itemBuilder: (context, index) {
-                        News news = snapshot.data![index];
+                        News news = filteredNews[index];
                         return Card(
                             child: GestureDetector(
                           onTap: () {
@@ -360,6 +401,9 @@ class _NewsListPageState extends State<NewsListPage> {
                 },
               ),
             ),
+          ),
+          const SizedBox(
+            height: 20,
           )
         ],
       ),

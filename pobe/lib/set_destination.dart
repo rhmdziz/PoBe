@@ -475,6 +475,9 @@ class _SetDestinyState extends State<SetDestiny> {
                         ),
                       ),
                     ),
+                    const SizedBox(
+                      height: 15,
+                    ),
                   ],
                 ),
               ),
