@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:pobe/destination_result.dart';
 import 'package:pobe/help.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class SetDestiny extends StatefulWidget {
-  const SetDestiny({super.key});
+  final String startPoint;
+  final String endPoint;
+
+  const SetDestiny(
+      {super.key, required this.startPoint, required this.endPoint});
 
   @override
   State<SetDestiny> createState() => _SetDestinyState();
@@ -20,6 +25,13 @@ class _SetDestinyState extends State<SetDestiny> {
   double _scale = 1.0;
   final TransformationController _transformationController =
       TransformationController();
+
+  @override
+  void initState() {
+    super.initState();
+    _startPointController.text = widget.startPoint;
+    _endPointController.text = widget.endPoint;
+  }
 
   void _zoomIn() {
     setState(() {
@@ -434,7 +446,18 @@ class _SetDestinyState extends State<SetDestiny> {
                       height: 10,
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResultDestiny(
+                                    startPoint: _startPointController.text,
+                                    endPoint: _endPointController.text,
+                                    fromTime: _fromTimeController.text,
+                                    toTime: _toTimeController.text,
+                                  )),
+                        );
+                      },
                       style: ButtonStyle(
                         backgroundColor: const MaterialStatePropertyAll(
                             Color.fromRGBO(31, 54, 113, 1)),

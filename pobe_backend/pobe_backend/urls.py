@@ -87,6 +87,14 @@ class NewsViewSet(viewsets.ModelViewSet):
     queryset = models.News.objects.all()
     serializer_class = NewsSerializer
 
+class ReportSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Report
+        fields = '__all__'
+class ReportViewSet(viewsets.ModelViewSet):
+    queryset = models.Report.objects.all()
+    serializer_class = ReportSerializer
+
 class BusRouteSerializer(serializers.ModelSerializer):
     rute = serializers.StringRelatedField(many=True)
     class Meta:
@@ -124,6 +132,7 @@ router.register(r'hospitals', HospitalViewSet)
 router.register(r'malls', MallViewSet)
 router.register(r'shoppings', ShoppingViewSet)
 router.register(r'newss', NewsViewSet)
+router.register(r'reports', ReportViewSet)
 router.register(r'haltes', HalteViewSet)
 router.register(r'busroutes', BusRouteViewSet)
 router.register(r'busscheduls', BusScheduleViewSet)

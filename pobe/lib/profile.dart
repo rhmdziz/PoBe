@@ -3,6 +3,7 @@ import 'package:pobe/edit_profile.dart';
 import 'package:pobe/help.dart';
 import 'package:pobe/login.dart';
 import 'package:pobe/setting.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -177,7 +178,11 @@ class ProfilePage extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         alignment: Alignment.centerLeft,
                         child: TextButton(
-                          onPressed: null,
+                          onPressed: () {
+                            const url =
+                                'https://wa.me/6285700435141?text=Hi,%20Aziz!';
+                            launchUrl(Uri.parse(url));
+                          },
                           child: Row(
                             children: [
                               Image.asset('assets/profile/cs.png'),

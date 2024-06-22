@@ -176,7 +176,17 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+class Report(models.Model):
+    id = models.AutoField(primary_key=True)
+    datetime = models.DateTimeField(auto_now=True)
+    author = models.CharField(max_length=40, default='user')
+    title = models.CharField(max_length=100)
+    content = models.CharField(max_length=4000)
+    image = models.ImageField(blank=True)
+
+    def __str__(self):
+        return f'{self.title} (Report)'
 
 
 # halte_list_bus_1 = [

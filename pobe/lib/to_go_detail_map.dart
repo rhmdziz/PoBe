@@ -9,8 +9,7 @@ class DirectionsPage extends StatefulWidget {
   final double longitude;
 
   const DirectionsPage(
-      {Key? key, required this.latitude, required this.longitude})
-      : super(key: key);
+      {super.key, required this.latitude, required this.longitude});
 
   @override
   _DirectionsPageState createState() => _DirectionsPageState();

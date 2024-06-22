@@ -207,7 +207,10 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const SetDestiny(),
+                                  builder: (context) => const SetDestiny(
+                                    startPoint: '',
+                                    endPoint: '',
+                                  ),
                                 ),
                               );
                             },
@@ -255,7 +258,10 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const SetDestiny(),
+                                              const SetDestiny(
+                                            startPoint: '',
+                                            endPoint: '',
+                                          ),
                                         ),
                                       );
                                     },
@@ -281,20 +287,35 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 const SizedBox(width: 10),
                                 Expanded(
-                                  child: Container(
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        "AEON - The Breeze",
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(31, 54, 113, 1),
-                                          fontSize: 14,
-                                          fontFamily: 'Lexend',
-                                          fontWeight: FontWeight.bold,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SetDestiny(
+                                            startPoint: 'AEON MALL 1',
+                                            endPoint: 'THE BREEZE',
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: const Center(
+                                        child: Text(
+                                          "AEON - The Breeze",
+                                          style: TextStyle(
+                                            color:
+                                                Color.fromRGBO(31, 54, 113, 1),
+                                            fontSize: 14,
+                                            fontFamily: 'Lexend',
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),
