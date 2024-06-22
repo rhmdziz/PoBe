@@ -69,7 +69,8 @@ class _SetDestinyState extends State<SetDestiny> {
       initialTime: TimeOfDay.now(),
     );
     if (picked != null) {
-      final String formattedTime = picked.format(context);
+      final formattedTime = MaterialLocalizations.of(context)
+          .formatTimeOfDay(picked, alwaysUse24HourFormat: true);
       setState(() {
         controller.text = formattedTime;
       });
