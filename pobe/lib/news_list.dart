@@ -278,23 +278,23 @@ class _NewsListPageState extends State<NewsListPage> {
                 children: [
                   buildTab('Trending'),
                   const SizedBox(
-                    width: 15,
+                    width: 30,
                   ),
                   buildTab('Latest'),
                   const SizedBox(
-                    width: 15,
+                    width: 30,
                   ),
                   buildTab('Lifestyle'),
                   const SizedBox(
-                    width: 15,
+                    width: 30,
                   ),
                   buildTab('Politic'),
                   const SizedBox(
-                    width: 15,
+                    width: 30,
                   ),
                   buildTab('Health'),
                   const SizedBox(
-                    width: 15,
+                    width: 30,
                   ),
                   buildTab('Sport'),
                 ],

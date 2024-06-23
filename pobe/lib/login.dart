@@ -134,13 +134,13 @@ class _LoginState extends State<Login> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: const Color.fromRGBO(80, 137, 198, 0.22),
-                  labelStyle: const TextStyle(
+                  hintStyle: const TextStyle(
                     color: Color.fromRGBO(31, 54, 113, 1),
                     fontSize: 16,
                     fontWeight: FontWeight.w300,
                     fontFamily: 'Lexend',
                   ),
-                  labelText: 'Password',
+                  hintText: 'Password',
                   contentPadding:
                       const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
                   border: const OutlineInputBorder(

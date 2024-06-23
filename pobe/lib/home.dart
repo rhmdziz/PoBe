@@ -294,7 +294,7 @@ class _HomePageState extends State<HomePage> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               const SetDestiny(
-                                            startPoint: 'AEON MALL 1',
+                                            startPoint: 'INTERMODA',
                                             endPoint: 'THE BREEZE',
                                           ),
                                         ),
@@ -308,7 +308,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       child: const Center(
                                         child: Text(
-                                          "AEON - The Breeze",
+                                          "Intermoda - The Breeze",
                                           style: TextStyle(
                                             color:
                                                 Color.fromRGBO(31, 54, 113, 1),

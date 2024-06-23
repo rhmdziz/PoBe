@@ -285,5 +285,29 @@ class BusSchedule(models.Model):
         ordering = ['nomor_bis']
 
     def __str__(self):
-        return f"{self.rute.nama_rute} ({self.halte.nama_halte})"
+        return self.halte.nama_halte
+    
+    def save(self, *args, **kwargs):
+        if self.waktu_1:
+            self.waktu_1 = self.waktu_1.replace(second=0, microsecond=0)
+        elif self.waktu_2:
+            self.waktu_2 = self.waktu_2.replace(second=0, microsecond=0)
+        elif self.waktu_3:
+            self.waktu_3 = self.waktu_3.replace(second=0, microsecond=0)
+        elif self.waktu_4:
+            self.waktu_4 = self.waktu_4.replace(second=0, microsecond=0)
+        elif self.waktu_5:
+            self.waktu_5 = self.waktu_5.replace(second=0, microsecond=0)
+        elif self.waktu_6:
+            self.waktu_6 = self.waktu_6.replace(second=0, microsecond=0)
+        elif self.waktu_7:
+            self.waktu_7 = self.waktu_7.replace(second=0, microsecond=0)
+
+
+
+
+
+
+
+        super().save(*args, **kwargs)
 

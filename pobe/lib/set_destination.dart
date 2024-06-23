@@ -26,6 +26,9 @@ class _SetDestinyState extends State<SetDestiny> {
   final TransformationController _transformationController =
       TransformationController();
 
+  String _startPointId = '';
+  String _endPointId = '';
+
   @override
   void initState() {
     super.initState();
@@ -47,15 +50,19 @@ class _SetDestinyState extends State<SetDestiny> {
     });
   }
 
-  Future<List<String>> _getSuggestions(String query) async {
+  Future<List<Map<String, String>>> _getSuggestions(String query) async {
     final response =
         await http.get(Uri.parse('http://192.168.50.226:8000/haltes/'));
 
     if (response.statusCode == 200) {
       List data = json.decode(response.body);
       return data
-          .map((item) => item['nama_halte'] as String)
-          .where((name) => name.toLowerCase().contains(query.toLowerCase()))
+          .map((item) => {
+                'id': item['id'].toString(),
+                'nama_halte': item['nama_halte'] as String
+              })
+          .where((item) =>
+              item['nama_halte']!.toLowerCase().contains(query.toLowerCase()))
           .toList();
     } else {
       throw Exception('Failed to load suggestions');
@@ -67,12 +74,17 @@ class _SetDestinyState extends State<SetDestiny> {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
     );
     if (picked != null) {
-      final formattedTime = MaterialLocalizations.of(context)
-          .formatTimeOfDay(picked, alwaysUse24HourFormat: true);
       setState(() {
-        controller.text = formattedTime;
+        controller.text =
+            '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
       });
     }
   }
@@ -211,11 +223,13 @@ class _SetDestinyState extends State<SetDestiny> {
                                 hideKeyboardOnDrag: true,
                                 itemBuilder: (context, suggestion) {
                                   return ListTile(
-                                    title: Text(suggestion),
+                                    title: Text(suggestion['nama_halte']!),
                                   );
                                 },
                                 onSelected: (suggestion) {
-                                  _startPointController.text = suggestion;
+                                  _startPointController.text =
+                                      suggestion['nama_halte']!;
+                                  _startPointId = suggestion['id']!;
                                 },
                                 suggestionsCallback: (pattern) async {
                                   return await _getSuggestions(pattern);
@@ -274,7 +288,8 @@ class _SetDestinyState extends State<SetDestiny> {
                                   focusNode: focusNode,
                                   decoration: const InputDecoration(
                                     border: UnderlineInputBorder(
-                                        borderSide: BorderSide.none),
+                                      borderSide: BorderSide.none,
+                                    ),
                                     hintText: 'End Point ...',
                                     hintStyle: TextStyle(
                                       color: Color.fromARGB(255, 26, 159, 255),
@@ -294,11 +309,13 @@ class _SetDestinyState extends State<SetDestiny> {
                                 hideKeyboardOnDrag: true,
                                 itemBuilder: (context, suggestion) {
                                   return ListTile(
-                                    title: Text(suggestion),
+                                    title: Text(suggestion['nama_halte']!),
                                   );
                                 },
                                 onSelected: (suggestion) {
-                                  _endPointController.text = suggestion;
+                                  _endPointController.text =
+                                      suggestion['nama_halte']!;
+                                  _endPointId = suggestion['id']!;
                                 },
                                 suggestionsCallback: (pattern) async {
                                   return await _getSuggestions(pattern);
@@ -451,12 +468,15 @@ class _SetDestinyState extends State<SetDestiny> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ResultDestiny(
-                                    startPoint: _startPointController.text,
-                                    endPoint: _endPointController.text,
-                                    fromTime: _fromTimeController.text,
-                                    toTime: _toTimeController.text,
-                                  )),
+                            builder: (context) => ResultDestiny(
+                              startPoint: _startPointController.text,
+                              endPoint: _endPointController.text,
+                              fromTime: _fromTimeController.text,
+                              toTime: _toTimeController.text,
+                              startPointId: _startPointId,
+                              endPointId: _endPointId,
+                            ),
+                          ),
                         );
                       },
                       style: ButtonStyle(
