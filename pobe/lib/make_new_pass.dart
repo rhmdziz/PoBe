@@ -17,6 +17,14 @@ class _NewPassState extends State<NewPass> {
     });
   }
 
+  bool _obscureText2 = true;
+
+  void _toggleConfirmPasswordVisibility() {
+    setState(() {
+      _obscureText2 = !_obscureText2;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,25 +48,6 @@ class _NewPassState extends State<NewPass> {
             const SizedBox(
               height: 30,
             ),
-            const TextField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Color.fromRGBO(80, 137, 198, 0.22),
-                labelStyle: TextStyle(
-                  color: Color.fromRGBO(31, 54, 113, 1),
-                  fontSize: 16,
-                  fontFamily: 'Lexend',
-                  fontWeight: FontWeight.w300,
-                ),
-                labelText: 'Email or username',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 15, horizontal: 16),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(7.5)),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
             const SizedBox(
               height: 20,
             ),
@@ -67,13 +56,13 @@ class _NewPassState extends State<NewPass> {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromRGBO(80, 137, 198, 0.22),
-                labelStyle: const TextStyle(
+                hintStyle: const TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
                   fontSize: 16,
                   fontWeight: FontWeight.w300,
                   fontFamily: 'Lexend',
                 ),
-                labelText: 'New Password',
+                hintText: 'New Password',
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
                 border: const OutlineInputBorder(
@@ -93,17 +82,17 @@ class _NewPassState extends State<NewPass> {
               height: 20,
             ),
             TextField(
-              obscureText: _obscureText,
+              obscureText: _obscureText2,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromRGBO(80, 137, 198, 0.22),
-                labelStyle: const TextStyle(
+                hintStyle: const TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
                   fontSize: 16,
                   fontWeight: FontWeight.w300,
                   fontFamily: 'Lexend',
                 ),
-                labelText: 'Confirm New Password',
+                hintText: 'Confirm New Password',
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
                 border: const OutlineInputBorder(
@@ -112,10 +101,10 @@ class _NewPassState extends State<NewPass> {
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                    _obscureText2 ? Icons.visibility : Icons.visibility_off,
                     color: const Color.fromRGBO(31, 54, 113, 1),
                   ),
-                  onPressed: _togglePasswordVisibility,
+                  onPressed: _toggleConfirmPasswordVisibility,
                 ),
               ),
             ),

@@ -53,7 +53,7 @@ class InsertOtp extends StatelessWidget {
                       maxLength: 1,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 24,
                         fontFamily: 'Lexend',
                       ),
                       decoration: const InputDecoration(

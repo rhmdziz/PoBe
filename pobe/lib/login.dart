@@ -110,13 +110,13 @@ class _LoginState extends State<Login> {
                 decoration: const InputDecoration(
                   filled: true,
                   fillColor: Color.fromRGBO(80, 137, 198, 0.22),
-                  labelStyle: TextStyle(
+                  hintStyle: TextStyle(
                     color: Color.fromRGBO(31, 54, 113, 1),
                     fontSize: 16,
                     fontFamily: 'Lexend',
                     fontWeight: FontWeight.w300,
                   ),
-                  labelText: 'Email or username',
+                  hintText: 'Username',
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 15, horizontal: 16),
                   border: OutlineInputBorder(

@@ -12,16 +12,24 @@ class Regist extends StatefulWidget {
 
 class _RegistState extends State<Regist> {
   bool _obscureText = true;
+  bool _obscureText2 = true;
 
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
+
   bool _isLoading = false;
 
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
+    });
+  }
+
+  void _toggleConfirmPasswordVisibility() {
+    setState(() {
+      _obscureText2 = !_obscureText2;
     });
   }
 
@@ -107,13 +115,13 @@ class _RegistState extends State<Regist> {
               decoration: const InputDecoration(
                 filled: true,
                 fillColor: Color.fromRGBO(80, 137, 198, 0.22),
-                labelStyle: TextStyle(
+                hintStyle: TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
                   fontSize: 16,
                   fontFamily: 'Lexend',
                   fontWeight: FontWeight.w300,
                 ),
-                labelText: 'Username',
+                hintText: 'Username',
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 15, horizontal: 16),
                 border: OutlineInputBorder(
@@ -130,13 +138,13 @@ class _RegistState extends State<Regist> {
               decoration: const InputDecoration(
                 filled: true,
                 fillColor: Color.fromRGBO(80, 137, 198, 0.22),
-                labelStyle: TextStyle(
+                hintStyle: TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
                   fontSize: 16,
                   fontFamily: 'Lexend',
                   fontWeight: FontWeight.w300,
                 ),
-                labelText: 'Email',
+                hintText: 'Email',
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 15, horizontal: 16),
                 border: OutlineInputBorder(
@@ -154,13 +162,13 @@ class _RegistState extends State<Regist> {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromRGBO(80, 137, 198, 0.22),
-                labelStyle: const TextStyle(
+                hintStyle: const TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
                   fontSize: 16,
                   fontWeight: FontWeight.w300,
                   fontFamily: 'Lexend',
                 ),
-                labelText: 'Password',
+                hintText: 'Password',
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
                 border: const OutlineInputBorder(
@@ -181,17 +189,17 @@ class _RegistState extends State<Regist> {
             ),
             TextField(
               controller: _confirmPasswordController,
-              obscureText: _obscureText,
+              obscureText: _obscureText2,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromRGBO(80, 137, 198, 0.22),
-                labelStyle: const TextStyle(
+                hintStyle: const TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
                   fontSize: 16,
                   fontWeight: FontWeight.w300,
                   fontFamily: 'Lexend',
                 ),
-                labelText: 'Confirm Password',
+                hintText: 'Confirm Password',
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
                 border: const OutlineInputBorder(
@@ -200,10 +208,10 @@ class _RegistState extends State<Regist> {
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                    _obscureText2 ? Icons.visibility : Icons.visibility_off,
                     color: const Color.fromRGBO(31, 54, 113, 1),
                   ),
-                  onPressed: _togglePasswordVisibility,
+                  onPressed: _toggleConfirmPasswordVisibility,
                 ),
               ),
             ),
