@@ -38,7 +38,8 @@ class _RegistState extends State<Regist> {
       _isLoading = true;
     });
 
-    final url = Uri.parse('http://192.168.50.226:8000/api/signup/');
+    
+    final url = Uri.parse('http://10.10.162.101:8000/api/signup/');
     final response = await http.post(
       url,
       body: json.encode({

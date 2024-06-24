@@ -100,7 +100,7 @@ class _ResultDestinyState extends State<ResultDestiny> {
 
   Future<List<String>> fetchBusRoutes(String ruteId) async {
     final response = await http
-        .get(Uri.parse('http://192.168.50.226:8000/busroutes/$ruteId'));
+        .get(Uri.parse('http://10.10.162.101:8000/busroutes/$ruteId'));
 
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -115,7 +115,7 @@ class _ResultDestinyState extends State<ResultDestiny> {
   Future<void> fetchRuteMap() async {
     try {
       final response =
-          await http.get(Uri.parse('http://192.168.50.226:8000/busroutes/'));
+          await http.get(Uri.parse('http://10.10.162.101:8000/busroutes/'));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = json.decode(response.body);
@@ -135,7 +135,8 @@ class _ResultDestinyState extends State<ResultDestiny> {
   Future<void> fetchHalteMap() async {
     try {
       final response =
-          await http.get(Uri.parse('http://192.168.50.226:8000/haltes/'));
+          
+          await http.get(Uri.parse('http://10.10.162.101:8000/haltes/'));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = json.decode(response.body);
@@ -155,7 +156,8 @@ class _ResultDestinyState extends State<ResultDestiny> {
   Future<List<BusSchedule>> fetchBusSchedules() async {
     try {
       final response =
-          await http.get(Uri.parse('http://192.168.50.226:8000/busscheduls/'));
+         
+          await http.get(Uri.parse('http://10.10.162.101:8000/busscheduls/'));
 
       if (response.statusCode == 200) {
         List jsonResponse = json.decode(response.body);

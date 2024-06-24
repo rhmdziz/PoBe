@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  final String baseUrl = 'http://192.168.50.226:8000/';
+  final String baseUrl = 'http://10.10.162.101:8000/';
   final Map<String, String> endpoints = {
     'Food': 'foods/',
     'Entertain': 'entertains/',

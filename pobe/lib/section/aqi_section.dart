@@ -25,7 +25,8 @@ class AQIResponse {
 }
 
 class ApiService {
-  final String baseUrl = 'https://api.waqi.info/feed/A416785/';
+  final String baseUrl = 'https://api.waqi.info/feed/A417100/';
+  // final String baseUrl = 'https://api.waqi.info/feed/A416785/';
   final String token = '9f59127ff5cd375ecfd300353d1e7e5bbf73ce2f';
 
   Future<AQIResponse> fetchAQI() async {
@@ -135,6 +136,7 @@ class _AqiSectionState extends State<AqiSection> {
                         width: 150,
                         height: 150,
                         color: const Color.fromRGBO(0, 0, 0, 0.075),
+                        padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
