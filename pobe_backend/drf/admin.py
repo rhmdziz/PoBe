@@ -12,3 +12,7 @@ admin.site.register(models.News)
 admin.site.register(models.BusRoute)
 admin.site.register(models.BusSchedule)
 admin.site.register(models.Halte)
+
+admin.site.register(models.Waktu)
+admin.site.register(models.Time)
+admin.site.register(models.WaktuRute)

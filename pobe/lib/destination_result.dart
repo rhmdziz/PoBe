@@ -72,14 +72,21 @@ class BusSchedule {
     );
   }
 
-  List<String> getWaktuWithinRange(String fromTime, String toTime) {
+  List<Map<String, String>> getWaktuWithinRange(
+      String fromTime, String toTime) {
     DateTime from = parseTime(fromTime);
     DateTime to = parseTime(toTime);
 
-    return waktu.where((waktu) {
-      DateTime time = parseTime2(waktu);
-      return time.isAfter(from) && time.isBefore(to);
-    }).toList();
+    List<Map<String, String>> result = [];
+
+    for (int i = 0; i < waktu.length; i++) {
+      DateTime time = parseTime2(waktu[i]);
+      if (time.isAfter(from) && time.isBefore(to)) {
+        result.add({'waktu': waktu[i], 'index': 'waktu_${i + 1}'});
+      }
+    }
+
+    return result;
   }
 }
 
@@ -100,7 +107,7 @@ class _ResultDestinyState extends State<ResultDestiny> {
 
   Future<List<String>> fetchBusRoutes(String ruteId) async {
     final response = await http
-        .get(Uri.parse('http://10.10.162.101:8000/busroutes/$ruteId'));
+        .get(Uri.parse('http://10.10.161.245:8000/busroutes/$ruteId'));
 
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -115,7 +122,7 @@ class _ResultDestinyState extends State<ResultDestiny> {
   Future<void> fetchRuteMap() async {
     try {
       final response =
-          await http.get(Uri.parse('http://10.10.162.101:8000/busroutes/'));
+          await http.get(Uri.parse('http://10.10.161.245:8000/busroutes/'));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = json.decode(response.body);
@@ -135,8 +142,7 @@ class _ResultDestinyState extends State<ResultDestiny> {
   Future<void> fetchHalteMap() async {
     try {
       final response =
-          
-          await http.get(Uri.parse('http://10.10.162.101:8000/haltes/'));
+          await http.get(Uri.parse('http://10.10.161.245:8000/haltes/'));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = json.decode(response.body);
@@ -156,8 +162,7 @@ class _ResultDestinyState extends State<ResultDestiny> {
   Future<List<BusSchedule>> fetchBusSchedules() async {
     try {
       final response =
-         
-          await http.get(Uri.parse('http://10.10.162.101:8000/busscheduls/'));
+          await http.get(Uri.parse('http://10.10.161.245:8000/busscheduls/'));
 
       if (response.statusCode == 200) {
         List jsonResponse = json.decode(response.body);
@@ -409,10 +414,10 @@ class _ResultDestinyState extends State<ResultDestiny> {
                           } else {
                             List<String> routes = routeSnapshot.data!;
                             if (!routes.contains(widget.endPoint)) {
-                              return Container(); // Skip rendering if endPoint is not in routes
+                              return Container();
                             }
-                            List<String> filteredTimes = data[index]
-                                .getWaktuWithinRange(
+                            List<Map<String, String>> filteredTimes =
+                                data[index].getWaktuWithinRange(
                                     widget.fromTime, widget.toTime);
                             String ruteName =
                                 ruteMap[data[index].rute.toString()] ??
@@ -425,7 +430,8 @@ class _ResultDestinyState extends State<ResultDestiny> {
                               children: filteredTimes.map((time) {
                                 return GestureDetector(
                                   onTap: () {
-                                    _showBusScheduleDetails(data[index], time);
+                                    _showBusScheduleDetails(
+                                        data[index], time, filteredTimes);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -560,7 +566,8 @@ class _ResultDestinyState extends State<ResultDestiny> {
                                                       alignment:
                                                           Alignment.center,
                                                       child: Text(
-                                                        time.substring(0, 5),
+                                                        time['waktu']!
+                                                            .substring(0, 5),
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: const TextStyle(
@@ -602,9 +609,11 @@ class _ResultDestinyState extends State<ResultDestiny> {
     );
   }
 
-  void _showBusScheduleDetails(BusSchedule schedule, time) {
+  void _showBusScheduleDetails(
+      BusSchedule schedule, time, List<Map<String, String>> filterTimes) {
     showModalBottomSheet(
         context: context,
+
         // isScrollControlled: true,
         builder: (BuildContext context) {
           String ruteName =
@@ -794,9 +803,6 @@ class _ResultDestinyState extends State<ResultDestiny> {
                                               ),
                                             ],
                                           ),
-                                          // Text(
-                                          //   // WAKTU NYA TULIS DI SINI
-                                          // );
                                         ],
                                       ),
                                     );

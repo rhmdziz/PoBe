@@ -69,7 +69,7 @@ class _NewsListPageState extends State<NewsListPage> {
 
   Future<List<News>> fetchNews() async {
     final response =
-        await http.get(Uri.parse('http://10.10.162.101:8000/newss/'));
+        await http.get(Uri.parse('http://10.10.161.245:8000/newss/'));
        
 
     print(response.statusCode);

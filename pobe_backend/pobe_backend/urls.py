@@ -97,13 +97,63 @@ class ReportViewSet(viewsets.ModelViewSet):
 
 class BusRouteSerializer(serializers.ModelSerializer):
     rute = serializers.StringRelatedField(many=True)
+    waktu_id = serializers.StringRelatedField(many=True)
     class Meta:
         model = models.BusRoute
         fields = '__all__'
-        
+
 class BusRouteViewSet(viewsets.ModelViewSet):
     queryset = models.BusRoute.objects.all()
     serializer_class = BusRouteSerializer
+
+class WaktuRuteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.WaktuRute
+        fields = '__all__'
+class WaktuRuteViewSet(viewsets.ModelViewSet):
+    queryset = models.WaktuRute.objects.all()
+    serializer_class = WaktuRuteSerializer
+
+
+class TimeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Time
+        fields = '__all__'
+class TimeViewSet(viewsets.ModelViewSet):
+    queryset = models.Time.objects.all()
+    serializer_class = TimeSerializer
+
+class WaktuSerializer(serializers.HyperlinkedModelSerializer):
+    # waktu_list = TimeSerializer(many=True)
+    # waktu_list = serializers.PrimaryKeyRelatedField(many=True, queryset=models.Time.objects.all())
+    waktu_list = TimeSerializer(many=True, read_only=True)
+    waktu_list_ids = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=models.Time.objects.all(), write_only=True, source='waktu_list'
+    )
+
+    class Meta:
+        model = models.Waktu
+        fields = ['id', 'waktu_list', 'waktu_list_ids']
+
+    def create(self, validated_data):
+        waktu_list_data = validated_data.pop('waktu_list')
+        waktu = models.Waktu.objects.create(**validated_data)
+        for time_data in waktu_list_data:
+            waktu.waktu_list.add(time_data)
+        return waktu
+
+    def update(self, instance, validated_data):
+        waktu_list_data = validated_data.pop('waktu_list')
+        instance.waktu_list.clear()
+        for time_data in waktu_list_data:
+            instance.waktu_list.add(time_data)
+        instance.save()
+        return instance
+
+class WaktuViewSet(viewsets.ModelViewSet):
+    queryset = models.Waktu.objects.all()
+    serializer_class = WaktuSerializer
+
 
 class HalteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -116,6 +166,7 @@ class HalteViewSet(viewsets.ModelViewSet):
 class BusScheduleSerializer(serializers.HyperlinkedModelSerializer):
     rute = serializers.PrimaryKeyRelatedField(queryset=models.BusRoute.objects.all())
     halte = serializers.PrimaryKeyRelatedField(queryset=models.Halte.objects.all())
+
     class Meta:
         model = models.BusSchedule
         fields = '__all__'
@@ -136,6 +187,9 @@ router.register(r'reports', ReportViewSet)
 router.register(r'haltes', HalteViewSet)
 router.register(r'busroutes', BusRouteViewSet)
 router.register(r'busscheduls', BusScheduleViewSet)
+router.register(r'wakturutes', WaktuRuteViewSet)
+router.register(r'waktus', WaktuViewSet)
+router.register(r'time', TimeViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

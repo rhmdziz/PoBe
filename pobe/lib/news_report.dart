@@ -43,7 +43,7 @@ class _NewsReportPageState extends State<NewsReportPage> {
 
     try {
     
-      var url = Uri.parse('http://10.10.162.101:8000/reports/');
+      var url = Uri.parse('http://10.10.161.245:8000/reports/');
       var request = http.MultipartRequest('POST', url);
       request.fields['title'] = title;
       request.fields['content'] = content;

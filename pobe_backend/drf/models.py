@@ -255,6 +255,9 @@ class Report(models.Model):
 
 # models.py
 
+
+
+
 class BusRoute(models.Model):
     nama_rute = models.CharField(max_length=100)
     def __str__(self):
@@ -262,12 +265,43 @@ class BusRoute(models.Model):
 
 class Halte(models.Model):
     nama_halte = models.CharField(max_length=100, unique=True)
-
     class Meta:
         ordering = ['nama_halte']
-
     def __str__(self):
         return self.nama_halte
+
+
+class Time(models.Model):
+    time_value = models.TimeField()
+
+    def __str__(self):
+        return f'{self.time_value}'
+    
+class Waktu(models.Model):
+    waktu_id = models.CharField(max_length=100, null=True)
+    waktu_list = models.ManyToManyField(Time, related_name='waktu_list')
+    def __str__(self):
+        return self.waktu_id
+        
+
+waktu_list = (
+    ('1','1'),
+    ('2','2'),
+    ('3','3'),
+    ('4','4'),
+    ('5','5'),
+    ('6','6'),
+    ('7','7'),
+)
+
+class WaktuRute(models.Model):
+    rute = models.ForeignKey(BusRoute, related_name='waktu_id', on_delete=models.CASCADE)
+    waktu_id = models.ForeignKey(Waktu, related_name='list_waktu', on_delete=models.CASCADE, blank=True, null=True) 
+    waktu = models.CharField(max_length=10, choices=waktu_list)
+
+    def __str__(self):
+        # return f'({self.waktu}) {self.rute.nama_rute} {self.waktu_id}'
+        return f'({self.waktu}) {self.rute.nama_rute}'
 
 class BusSchedule(models.Model):
     rute = models.ForeignKey(BusRoute, related_name='rute', on_delete=models.CASCADE)
@@ -286,28 +320,3 @@ class BusSchedule(models.Model):
 
     def __str__(self):
         return self.halte.nama_halte
-    
-    def save(self, *args, **kwargs):
-        if self.waktu_1:
-            self.waktu_1 = self.waktu_1.replace(second=0, microsecond=0)
-        elif self.waktu_2:
-            self.waktu_2 = self.waktu_2.replace(second=0, microsecond=0)
-        elif self.waktu_3:
-            self.waktu_3 = self.waktu_3.replace(second=0, microsecond=0)
-        elif self.waktu_4:
-            self.waktu_4 = self.waktu_4.replace(second=0, microsecond=0)
-        elif self.waktu_5:
-            self.waktu_5 = self.waktu_5.replace(second=0, microsecond=0)
-        elif self.waktu_6:
-            self.waktu_6 = self.waktu_6.replace(second=0, microsecond=0)
-        elif self.waktu_7:
-            self.waktu_7 = self.waktu_7.replace(second=0, microsecond=0)
-
-
-
-
-
-
-
-        super().save(*args, **kwargs)
-

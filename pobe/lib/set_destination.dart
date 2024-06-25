@@ -53,7 +53,7 @@ class _SetDestinyState extends State<SetDestiny> {
   Future<List<Map<String, String>>> _getSuggestions(String query) async {
     final response =
         
-        await http.get(Uri.parse('http://10.10.162.101:8000/haltes/'));
+        await http.get(Uri.parse('http://10.10.161.245:8000/haltes/'));
 
     if (response.statusCode == 200) {
       List data = json.decode(response.body);
