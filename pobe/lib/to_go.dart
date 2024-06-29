@@ -79,9 +79,9 @@ class _ToGoState extends State<ToGo> {
             ),
           ),
           ToGoMaps(apiUrl: apiUrl),
-          const SizedBox(height: 10),
+
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 10),
             child: Text(
               'Nearby ${widget.category}',
               style: const TextStyle(
@@ -94,45 +94,45 @@ class _ToGoState extends State<ToGo> {
           ),
 
           // INI FILTER
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 10),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.filter_list,
-                  color: Colors.grey,
-                ),
-                const SizedBox(width: 8),
-                const Text(
-                  'Filter :',
-                  style: TextStyle(
-                    color: Color.fromRGBO(0, 0, 0, 0.75),
-                    fontSize: 16,
-                    fontFamily: 'Lexend',
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                FilterDropdown(
-                  title: 'Price',
-                  onChanged: (newValue) {
-                    setState(() {
-                      selectedPriceFilter = newValue;
-                    });
-                  },
-                ),
-                const SizedBox(width: 8),
-                FilterDropdown(
-                  title: 'Rating',
-                  onChanged: (newValue) {
-                    setState(() {
-                      selectedRatingFilter = newValue;
-                    });
-                  },
-                ),
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 10),
+          //   child: Row(
+          //     children: [
+          //       const Icon(
+          //         Icons.filter_list,
+          //         color: Colors.grey,
+          //       ),
+          //       const SizedBox(width: 8),
+          //       const Text(
+          //         'Filter :',
+          //         style: TextStyle(
+          //           color: Color.fromRGBO(0, 0, 0, 0.75),
+          //           fontSize: 16,
+          //           fontFamily: 'Lexend',
+          //           fontWeight: FontWeight.w400,
+          //         ),
+          //       ),
+          //       const SizedBox(width: 8),
+          //       FilterDropdown(
+          //         title: 'Price',
+          //         onChanged: (newValue) {
+          //           setState(() {
+          //             selectedPriceFilter = newValue;
+          //           });
+          //         },
+          //       ),
+          //       const SizedBox(width: 8),
+          //       FilterDropdown(
+          //         title: 'Rating',
+          //         onChanged: (newValue) {
+          //           setState(() {
+          //             selectedRatingFilter = newValue;
+          //           });
+          //         },
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Expanded(
             child: SingleChildScrollView(
               child: Padding(

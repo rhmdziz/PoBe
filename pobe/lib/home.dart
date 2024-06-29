@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pobe/section/aqi_section.dart';
 import 'package:pobe/section/category_section.dart';
 import 'package:pobe/news_list.dart';
@@ -9,6 +6,7 @@ import 'package:pobe/news_report.dart';
 import 'package:pobe/profile.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:pobe/set_destination.dart';
+import 'dart:async';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,8 +16,45 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final PageController _controller = PageController();
+  late PageController _controller = PageController();
+  int _currentPage = 0;
   bool _notificationsEnabled = false;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = PageController(initialPage: _currentPage);
+    _startAutoScroll();
+  }
+
+  @override
+  void dispose() {
+    _stopAutoScroll();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _startAutoScroll() {
+    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+      if (_currentPage < 2) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+      if (_controller.hasClients) {
+        _controller.animateToPage(
+          _currentPage,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
+  void _stopAutoScroll() {
+    _timer?.cancel();
+  }
 
   Future<void> _refresh() async {
     await Future.delayed(const Duration(seconds: 1));
@@ -127,6 +162,11 @@ class _HomePageState extends State<HomePage> {
                           height: 240,
                           width: double.infinity,
                           child: PageView(
+                            onPageChanged: (index) {
+                              setState(() {
+                                _currentPage = index;
+                              });
+                            },
                             controller: _controller,
                             children: <Widget>[
                               ClipRRect(
