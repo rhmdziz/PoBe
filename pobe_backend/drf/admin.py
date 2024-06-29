@@ -2,6 +2,7 @@ from django.contrib import admin
 from drf import models
 # Register your models here.
 admin.site.register(models.Food)
+admin.site.register(models.FoodReview)
 admin.site.register(models.Entertain)
 admin.site.register(models.Sport)
 admin.site.register(models.Hospital)

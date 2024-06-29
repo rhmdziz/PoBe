@@ -45,10 +45,23 @@ class UserDetailView(generics.RetrieveAPIView):
     lookup_field = 'pk'
     permission_classes = [permissions.AllowAny]
 
-class FoodSerializer(serializers.HyperlinkedModelSerializer):
+
+class FoodReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.FoodReview
+        fields = '__all__'
+
+class FoodReviewViewSet(viewsets.ModelViewSet):
+    queryset = models.FoodReview.objects.all()
+    serializer_class = FoodReviewSerializer
+
+class FoodSerializer(serializers.ModelSerializer):
+    foodreview_set = FoodReviewSerializer(many=True, read_only=True)
+
     class Meta:
         model = models.Food
         fields = '__all__'
+
 class FoodViewSet(viewsets.ModelViewSet):
     queryset = models.Food.objects.all()
     serializer_class = FoodSerializer
@@ -192,6 +205,7 @@ class BusScheduleViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'foods', FoodViewSet)
+router.register(r'foodreviews', FoodReviewViewSet)
 router.register(r'entertains', EntertainViewSet)
 router.register(r'sports', SportViewSet)
 router.register(r'hospitals', HospitalViewSet)

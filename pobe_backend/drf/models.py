@@ -62,6 +62,19 @@ class Food(models.Model):
 
     def __str__(self):
         return self.name
+    
+class FoodReview(models.Model):
+    id = models.AutoField(primary_key=True)
+    foodId = models.ForeignKey(Food, on_delete=models.CASCADE, related_name='foodreview')
+    rating = models.CharField(max_length=4, choices=rating_list)
+    name = models.CharField(max_length=40, default='user')
+    review = models.CharField(max_length=400)
+
+    def __str__(self):
+        return f'{self.foodId.name} review {self.id} by {self.name}'
+
+
+
 class Entertain(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40)
@@ -81,6 +94,7 @@ class Entertain(models.Model):
 
     def __str__(self):
         return self.name
+    
 class Sport(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40)
