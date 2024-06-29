@@ -7,6 +7,8 @@ import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:pobe/splash/reported.dart';
+import 'package:pobe/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NewsReportPage extends StatefulWidget {
   const NewsReportPage({super.key});
@@ -19,6 +21,20 @@ class _NewsReportPageState extends State<NewsReportPage> {
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
   bool _isLoading = false;
+  String userEmail = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserName();
+  }
+
+  Future<void> _loadUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userEmail = prefs.getString('email') ?? '';
+    });
+  }
 
   File? _image;
   bool _isChecked = false;
@@ -42,11 +58,21 @@ class _NewsReportPageState extends State<NewsReportPage> {
     });
 
     try {
-    
-      var url = Uri.parse('http://10.10.161.245:8000/reports/');
+      var url = Uri.parse('http://192.168.50.64:8000/reports/');
+      // var url = Uri.parse('https://rhmdziz.pythonanywhere.com/reports/');
       var request = http.MultipartRequest('POST', url);
       request.fields['title'] = title;
+      request.fields['author'] = userEmail;
       request.fields['content'] = content;
+
+      TokenStorage tokenStorage = TokenStorage();
+      String? accessToken = await tokenStorage.getAccessToken();
+
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
+
+      request.headers['Authorization'] = 'Bearer $accessToken';
 
       if (imageFile != null) {
         var stream = http.ByteStream(imageFile.openRead());

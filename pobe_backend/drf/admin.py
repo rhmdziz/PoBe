@@ -9,6 +9,7 @@ admin.site.register(models.Mall)
 admin.site.register(models.Shopping)
 
 admin.site.register(models.News)
+admin.site.register(models.Report)
 admin.site.register(models.BusRoute)
 admin.site.register(models.BusSchedule)
 admin.site.register(models.Halte)

@@ -4,6 +4,7 @@ import 'package:pobe/help.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:pobe/login.dart';
 
 class SetDestiny extends StatefulWidget {
   final String startPoint;
@@ -51,9 +52,17 @@ class _SetDestinyState extends State<SetDestiny> {
   }
 
   Future<List<Map<String, String>>> _getSuggestions(String query) async {
-    final response =
-        
-        await http.get(Uri.parse('http://10.10.161.245:8000/haltes/'));
+    TokenStorage tokenStorage = TokenStorage();
+    String? accessToken = await tokenStorage.getAccessToken();
+
+    const url = 'http://192.168.50.64:8000/haltes/';
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+    // await http.get(Uri.parse('https://rhmdziz.pythonanywhere.com/haltes/'));
 
     if (response.statusCode == 200) {
       List data = json.decode(response.body);

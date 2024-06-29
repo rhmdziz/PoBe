@@ -1,12 +1,73 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:pobe/edit_profile.dart';
 import 'package:pobe/help.dart';
 import 'package:pobe/login.dart';
 import 'package:pobe/setting.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfilePage extends StatelessWidget {
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  late String accessToken;
+  late String userUrl;
+  late Map<String, dynamic> userDetails = {};
+
+  String userName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserDetails();
+    _loadUserName();
+  }
+
+  Future<void> _loadUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.getString('username') ?? '';
+    });
+  }
+
+  Future<void> _getUserDetails() async {
+    TokenStorage tokenStorage = TokenStorage();
+    accessToken = await tokenStorage.getAccessToken() ?? '';
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userUrl =
+        prefs.getString('url') ?? 'http://192.168.50.64:8000/api/users/2/';
+
+    try {
+      // var userDetailUrl = Uri.parse(userUrl);
+      var response = await http.get(
+        Uri.parse(userUrl),
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          userDetails = jsonDecode(response.body);
+        });
+        print('User details: $userDetails');
+      } else {
+        throw Exception('Failed to fetch user details');
+      }
+    } catch (e) {
+      print('Error fetching user details: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +125,11 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                'User',
-                style: TextStyle(
+              Text(
+                userName,
+                style: const TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
-                  fontSize: 15,
+                  fontSize: 16,
                   fontFamily: 'Lexend',
                   fontWeight: FontWeight.w500,
                 ),
@@ -214,10 +275,11 @@ class ProfilePage extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: TextButton(
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                              builder: (_) => const Login(),
-                            ));
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (_) => const Login()),
+                              (route) => false,
+                            );
                           },
                           child: Row(
                             children: [

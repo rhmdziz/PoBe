@@ -2,10 +2,10 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:pobe/help.dart';
 import 'package:intl/intl.dart';
+import 'package:pobe/login.dart';
 
 DateTime parseTime2(String timeString) {
   final format = DateFormat('HH:mm:ss');
@@ -106,8 +106,19 @@ class _ResultDestinyState extends State<ResultDestiny> {
   }
 
   Future<List<String>> fetchBusRoutes(String ruteId) async {
-    final response = await http
-        .get(Uri.parse('http://10.10.161.245:8000/busroutes/$ruteId'));
+    final url = 'http://192.168.50.64:8000/busroutes/$ruteId';
+
+    TokenStorage tokenStorage = TokenStorage();
+    String? accessToken = await tokenStorage.getAccessToken();
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+
+    // .get(Uri.parse('https://rhmdziz.pythonanywhere.com/busroutes/$ruteId'));
 
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -120,9 +131,20 @@ class _ResultDestinyState extends State<ResultDestiny> {
   }
 
   Future<void> fetchRuteMap() async {
+    const url = 'http://192.168.50.64:8000/busroutes/';
+
+    TokenStorage tokenStorage = TokenStorage();
+    String? accessToken = await tokenStorage.getAccessToken();
+
     try {
-      final response =
-          await http.get(Uri.parse('http://10.10.161.245:8000/busroutes/'));
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+
+      // await http.get(Uri.parse('https://rhmdziz.pythonanywhere.com/busroutes/'));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = json.decode(response.body);
@@ -140,9 +162,18 @@ class _ResultDestinyState extends State<ResultDestiny> {
   }
 
   Future<void> fetchHalteMap() async {
+    const url = 'http://192.168.50.64:8000/haltes/';
+    TokenStorage tokenStorage = TokenStorage();
+    String? accessToken = await tokenStorage.getAccessToken();
+
     try {
-      final response =
-          await http.get(Uri.parse('http://10.10.161.245:8000/haltes/'));
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+      // await http.get(Uri.parse('https://rhmdziz.pythonanywhere.com/haltes/'));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = json.decode(response.body);
@@ -160,9 +191,18 @@ class _ResultDestinyState extends State<ResultDestiny> {
   }
 
   Future<List<BusSchedule>> fetchBusSchedules() async {
+    const url = 'http://192.168.50.64:8000/busscheduls/';
+    TokenStorage tokenStorage = TokenStorage();
+    String? accessToken = await tokenStorage.getAccessToken();
+    
     try {
-      final response =
-          await http.get(Uri.parse('http://10.10.161.245:8000/busscheduls/'));
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+      // await http.get(Uri.parse('https://rhmdziz.pythonanywhere.com/busscheduls/'));
 
       if (response.statusCode == 200) {
         List jsonResponse = json.decode(response.body);

@@ -18,10 +18,18 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
+from rest_framework import generics, status, permissions
 from drf import models
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework.authtoken import views
+from drf.serializers import UserDetailSerializer
+
+from django.urls import path
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -30,6 +38,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class UserDetailView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserDetailSerializer
+    lookup_field = 'pk'
+    permission_classes = [permissions.AllowAny]
 
 class FoodSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -170,6 +184,7 @@ class BusScheduleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.BusSchedule
         fields = '__all__'
+
 class BusScheduleViewSet(viewsets.ModelViewSet):
     queryset = models.BusSchedule.objects.all()
     serializer_class = BusScheduleSerializer
@@ -198,6 +213,9 @@ urlpatterns = [
     path('api/', include('drf.urls', namespace='drf')),
     path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 if settings.DEBUG:

@@ -6,6 +6,7 @@
     <application
         android:label="pobe"
         android:name="${applicationName}"
+
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyBPCsnaVHxCg8M4qCCq1s1fCzVNzEDaRNk"/>

@@ -2,9 +2,11 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:pobe/login.dart';
 
 class ApiService {
-  final String baseUrl = 'http://10.10.161.245:8000/';
+  // final String baseUrl = 'https://rhmdziz.pythonanywhere.com/';
+  final String baseUrl = 'http://192.168.50.64:8000/';
   final Map<String, String> endpoints = {
     'Food': 'foods/',
     'Entertain': 'entertains/',
@@ -21,7 +23,21 @@ class ApiService {
     }
 
     final url = '$baseUrl$endpoint';
-    final response = await http.get(Uri.parse(url));
+    
+    TokenStorage tokenStorage = TokenStorage();
+    String? accessToken = await tokenStorage.getAccessToken();
+
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+
     print(response.statusCode);
     print(response.body);
 

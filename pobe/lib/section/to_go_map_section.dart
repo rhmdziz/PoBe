@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:pobe/service/location_service.dart';
+import 'package:pobe/login.dart';
 
 class ToGoMaps extends StatefulWidget {
   final String apiUrl;
@@ -57,7 +58,20 @@ class _ToGoMapsState extends State<ToGoMaps> {
 
   Future<void> _fetchLocations() async {
     try {
-      final response = await http.get(Uri.parse(widget.apiUrl));
+      TokenStorage tokenStorage = TokenStorage();
+      String? accessToken = await tokenStorage.getAccessToken();
+
+      if (accessToken == null) {
+        throw Exception('Access token not found');
+      }
+
+      final response = await http.get(
+        Uri.parse(widget.apiUrl),
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+      
       if (response.statusCode == 200) {
         List<dynamic> locations = json.decode(response.body);
         Set<Marker> markers = locations.map((location) {

@@ -5,6 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:pobe/forgot_pass.dart';
 import 'package:pobe/home.dart';
 import 'package:pobe/signup.dart';
+import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -13,9 +16,35 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
+class TokenStorage {
+  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
+
+  Future<void> saveTokens(String accessToken, String refreshToken) async {
+    await _secureStorage.write(key: 'access', value: accessToken);
+    await _secureStorage.write(key: 'refresh', value: refreshToken);
+  }
+
+  Future<void> saveAccessToken(String accessToken) async {
+    await _secureStorage.write(key: 'access', value: accessToken);
+  }
+
+  Future<String?> getAccessToken() async {
+    return await _secureStorage.read(key: 'access');
+  }
+
+  Future<String?> getRefreshToken() async {
+    return await _secureStorage.read(key: 'refresh');
+  }
+
+  Future<void> deleteTokens() async {
+    await _secureStorage.delete(key: 'access');
+    await _secureStorage.delete(key: 'refresh');
+  }
+}
+
 class _LoginState extends State<Login> {
   bool _obscureText = true;
-  late String _csrfToken = '';
+  // late String _csrfToken = '';
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
@@ -24,24 +53,6 @@ class _LoginState extends State<Login> {
     setState(() {
       _obscureText = !_obscureText;
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getCsrfToken();
-  }
-
-  void _getCsrfToken() async {
-    var response = await http.get(
-      Uri.parse('http://10.10.161.245:8000/api-auth/login/'),
-    );
-
-    if (response.statusCode == 200) {
-      setState(() {
-        _csrfToken = response.headers['set-cookie'] ?? '';
-      });
-    }
   }
 
   void _login(String username, String password) async {
@@ -53,18 +64,15 @@ class _LoginState extends State<Login> {
     });
 
     var response = await http.post(
-      Uri.parse(
-          // 'http://10.10.162.4:8000/api-auth/login/?next=/'),
-          'http://10.10.161.245:8000/api-auth/login/'),
+      // Uri.parse('https://rhmdziz.pythonanywhere.com/api/token/'),
+      Uri.parse('http://192.168.50.64:8000/api/token/'),
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Cookie': _csrfToken,
+        'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: {
+      body: jsonEncode({
         'username': username,
         'password': password,
-        'csrfmiddlewaretoken': _extractCsrfToken(),
-      },
+      }),
     );
 
     print(response.statusCode);
@@ -73,7 +81,20 @@ class _LoginState extends State<Login> {
       _isLoading = false;
     });
 
-    if (response.statusCode == 302) {
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+
+      String accessToken = data['access'];
+      String refreshToken = data['refresh'];
+
+      TokenStorage tokenStorage = TokenStorage();
+      await tokenStorage.saveTokens(accessToken, refreshToken);
+
+      print('Token saved: $accessToken');
+      print('Token saved: $refreshToken');
+
+      await _fetchUserId(accessToken);
+
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (_) => const HomePage(),
       ));
@@ -87,8 +108,44 @@ class _LoginState extends State<Login> {
     }
   }
 
-  String _extractCsrfToken() {
-    return _csrfToken.split(';')[0].split('=')[1];
+  Future<void> _fetchUserId(String accessToken) async {
+    try {
+      var usersUrl = Uri.parse('http://192.168.50.64:8000/users/');
+      var response = await http.get(
+        usersUrl,
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var users = jsonDecode(response.body) as List<dynamic>;
+        var loggedInUser = users.firstWhere(
+          (user) => user['username'] == _usernameController.text,
+          orElse: () => null,
+        );
+
+        if (loggedInUser != null) {
+          var userUrl = loggedInUser['url'];
+          print('Logged in user Url: $userUrl');
+
+          var userName = loggedInUser['username'];
+          print('Logged in user: $userName');
+          var userEmail = loggedInUser['email'];
+
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('url', userUrl);
+          await prefs.setString('username', userName);
+          await prefs.setString('email', userEmail);
+        } else {
+          throw Exception('Logged in user not found in response');
+        }
+      } else {
+        throw Exception('Failed to fetch users');
+      }
+    } catch (e) {
+      print('Error fetching user ID: $e');
+    }
   }
 
   @override

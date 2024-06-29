@@ -6,6 +6,7 @@ import 'package:pobe/help.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:pobe/news_detail.dart';
+import 'package:pobe/login.dart';
 
 class News {
   final String url;
@@ -68,9 +69,23 @@ class _NewsListPageState extends State<NewsListPage> {
   }
 
   Future<List<News>> fetchNews() async {
-    final response =
-        await http.get(Uri.parse('http://10.10.161.245:8000/newss/'));
-       
+    const url = 'http://192.168.50.64:8000/newss/';
+
+    TokenStorage tokenStorage = TokenStorage();
+    String? accessToken = await tokenStorage.getAccessToken();
+
+    if (accessToken == null) {
+      throw Exception('Access token not found');
+    }
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+
+    // await http.get(Uri.parse('https://rhmdziz.pythonanywhere.com/newss/'));
 
     print(response.statusCode);
     if (response.statusCode == 200) {

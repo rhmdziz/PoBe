@@ -1,8 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:pobe/help.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class EditProfilePage extends StatelessWidget {
+class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
+
+  @override
+  State<EditProfilePage> createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends State<EditProfilePage> {
+  late TextEditingController _usernameController;
+  late TextEditingController _emailController;
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController = TextEditingController();
+    _emailController = TextEditingController();
+    _loadUserData();
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _usernameController.text = prefs.getString('username') ?? '';
+      _emailController.text = prefs.getString('email') ?? '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +94,9 @@ class EditProfilePage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _usernameController,
+              decoration: const InputDecoration(
                 labelStyle: TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
                   fontSize: 14,
@@ -77,8 +110,9 @@ class EditProfilePage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _emailController,
+              decoration: const InputDecoration(
                 labelStyle: TextStyle(
                   color: Color.fromRGBO(31, 54, 113, 1),
                   fontSize: 14,
