@@ -106,7 +106,16 @@ class ShoppingViewSet(viewsets.ModelViewSet):
     queryset = models.Shopping.objects.all()
     serializer_class = ShoppingSerializer
 
-class NewsSerializer(serializers.HyperlinkedModelSerializer):
+class NewsCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.NewsComment
+        fields = '__all__'
+class NewsCommentViewSet(viewsets.ModelViewSet):
+    queryset = models.NewsComment.objects.all()
+    serializer_class = NewsCommentSerializer
+
+class NewsSerializer(serializers.ModelSerializer):
+    newscomment_set = NewsCommentSerializer(many=True, read_only=True)
     class Meta:
         model = models.News
         fields = '__all__'
@@ -212,6 +221,7 @@ router.register(r'hospitals', HospitalViewSet)
 router.register(r'malls', MallViewSet)
 router.register(r'shoppings', ShoppingViewSet)
 router.register(r'newss', NewsViewSet)
+router.register(r'newscomment', NewsCommentViewSet)
 router.register(r'reports', ReportViewSet)
 router.register(r'haltes', HalteViewSet)
 router.register(r'busroutes', BusRouteViewSet)

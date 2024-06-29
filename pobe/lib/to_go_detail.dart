@@ -322,7 +322,7 @@ class _ToGoDetailPageState extends State<ToGoDetailPage> {
               ),
               ListView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: foodReviews.length,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
@@ -560,9 +560,6 @@ class _ToGoDetailPageState extends State<ToGoDetailPage> {
                         TokenStorage tokenStorage = TokenStorage();
                         String? accessToken =
                             await tokenStorage.getAccessToken();
-
-                        final foodIdUrl =
-                            'http://192.168.50.64:8000/foods/${widget.item['id']}';
 
                         final requestData = {
                           "rating": _rating.toString(),

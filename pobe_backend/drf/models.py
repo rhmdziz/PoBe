@@ -1,6 +1,11 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 
+import pytz
+from django.utils import timezone
+gmt7 = pytz.timezone('Asia/Jakarta')
+
+
 operational_hour_list = [
         ('08:00 - 16:00 WIB','08:00 - 16:00 WIB'),
         ('08:00 - 22:00 WIB','08:00 - 22:00 WIB'),
@@ -199,6 +204,23 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
+    
+class NewsComment(models.Model):
+    id = models.AutoField(primary_key=True)
+    newsId = models.ForeignKey(News, on_delete=models.CASCADE, related_name='newscommet')
+    datetime = models.DateTimeField(auto_now=True)
+    name = models.CharField(max_length=40, default='user')
+    comment = models.CharField(max_length=400)
+
+    def __str__(self):
+        return f'{self.newsId.title} comment {self.id} by {self.name}'
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            current_time = timezone.now()
+            self.datetime = current_time.astimezone(gmt7)
+        super().save(*args, **kwargs)
+
 
 class Report(models.Model):
     id = models.AutoField(primary_key=True)

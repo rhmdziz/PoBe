@@ -9,7 +9,7 @@ import 'package:pobe/news_detail.dart';
 import 'package:pobe/login.dart';
 
 class News {
-  final String url;
+  final int url;
   final String title;
   final String author;
   final String datetime;
@@ -32,7 +32,7 @@ class News {
   });
   factory News.fromJson(Map<String, dynamic> json) {
     return News(
-      url: json['url'],
+      url: json['id'],
       title: json['title'],
       author: json['author'],
       datetime: json['datetime'],
@@ -88,6 +88,7 @@ class _NewsListPageState extends State<NewsListPage> {
     // await http.get(Uri.parse('https://rhmdziz.pythonanywhere.com/newss/'));
 
     print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
       List<News> newsList = data.map((json) => News.fromJson(json)).toList();
