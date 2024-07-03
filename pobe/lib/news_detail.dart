@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:pobe/help.dart';
@@ -73,7 +73,7 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
       throw Exception('Access token not found');
     }
 
-    const url = 'http://192.168.50.64:8000/newscomment/';
+    const url = 'https://rhmdziz.pythonanywhere.com/newscomment/';
 
     final response = await http.get(
       Uri.parse(url),
@@ -83,13 +83,11 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
     );
 
     print(response.statusCode);
-    print(response.body);
 
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
       List<NewsComment> fetchedComment = [];
       for (var commentData in data) {
-        print(commentData);
         if (commentData['newsId'] == widget.news.url) {
           fetchedComment.add(NewsComment.fromJson(commentData));
         }
@@ -494,7 +492,8 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                         print("Request Data: $requestData");
 
                         final response = await http.post(
-                          Uri.parse('http://192.168.50.64:8000/newscomment/'),
+                          Uri.parse(
+                              'https://rhmdziz.pythonanywhere.com/newscomment/'),
                           headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer $accessToken',
@@ -502,8 +501,6 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                           body: json.encode(requestData),
                         );
                         print(response.statusCode);
-                        print("Response Status: ${response.statusCode}");
-                        print("Response Body: ${response.body}");
 
                         setState(() {
                           _isLoading = false;

@@ -55,14 +55,14 @@ class _SetDestinyState extends State<SetDestiny> {
     TokenStorage tokenStorage = TokenStorage();
     String? accessToken = await tokenStorage.getAccessToken();
 
-    const url = 'http://192.168.50.64:8000/haltes/';
+    const url = 'https://rhmdziz.pythonanywhere.com/haltes/';
+    // const url = 'http://192.168.50.64:8000/haltes/';
     final response = await http.get(
       Uri.parse(url),
       headers: {
         'Authorization': 'Bearer $accessToken',
       },
     );
-    // await http.get(Uri.parse('https://rhmdziz.pythonanywhere.com/haltes/'));
 
     if (response.statusCode == 200) {
       List data = json.decode(response.body);

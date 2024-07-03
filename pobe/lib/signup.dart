@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields, avoid_print, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:pobe/splash/success_reg.dart';
 import 'package:http/http.dart' as http;
@@ -38,8 +40,8 @@ class _RegistState extends State<Regist> {
       _isLoading = true;
     });
 
-    final url = Uri.parse('http://192.168.50.64:8000/api/signup/');
-    // final url = Uri.parse('https://rhmdziz.pythonanywhere.com/api/signup/');
+    // final url = Uri.parse('http://192.168.50.64:8000/api/signup/');
+    final url = Uri.parse('https://rhmdziz.pythonanywhere.com/api/signup/');
     final response = await http.post(
       url,
       body: json.encode({
@@ -53,6 +55,8 @@ class _RegistState extends State<Regist> {
     setState(() {
       _isLoading = false;
     });
+
+    // print(response.request);
 
     print(response.statusCode);
 

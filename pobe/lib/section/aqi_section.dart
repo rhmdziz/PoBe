@@ -136,7 +136,7 @@ class _AqiSectionState extends State<AqiSection> {
                         width: 150,
                         height: 150,
                         color: const Color.fromRGBO(0, 0, 0, 0.075),
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

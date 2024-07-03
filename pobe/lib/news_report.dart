@@ -58,8 +58,8 @@ class _NewsReportPageState extends State<NewsReportPage> {
     });
 
     try {
-      var url = Uri.parse('http://192.168.50.64:8000/reports/');
-      // var url = Uri.parse('https://rhmdziz.pythonanywhere.com/reports/');
+      // var url = Uri.parse('http://192.168.50.64:8000/reports/');
+      var url = Uri.parse('https://rhmdziz.pythonanywhere.com/reports/');
       var request = http.MultipartRequest('POST', url);
       request.fields['title'] = title;
       request.fields['author'] = userEmail;

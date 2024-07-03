@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:pobe/login.dart';
 
 class ApiService {
-  // final String baseUrl = 'https://rhmdziz.pythonanywhere.com/';
-  final String baseUrl = 'http://192.168.50.64:8000/';
+  final String baseUrl = 'https://rhmdziz.pythonanywhere.com/';
+  // final String baseUrl = 'http://192.168.50.64:8000/';
   final Map<String, String> endpoints = {
     'Food': 'foods/',
     'Entertain': 'entertains/',
@@ -23,7 +23,7 @@ class ApiService {
     }
 
     final url = '$baseUrl$endpoint';
-    
+
     TokenStorage tokenStorage = TokenStorage();
     String? accessToken = await tokenStorage.getAccessToken();
 

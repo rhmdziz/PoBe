@@ -45,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     userUrl =
-        prefs.getString('url') ?? 'http://192.168.50.64:8000/api/users/2/';
+        prefs.getString('url') ?? 'https://rhmdziz.pythonanywhere.com/api/users/2/';
 
     try {
       // var userDetailUrl = Uri.parse(userUrl);

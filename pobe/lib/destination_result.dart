@@ -106,7 +106,7 @@ class _ResultDestinyState extends State<ResultDestiny> {
   }
 
   Future<List<String>> fetchBusRoutes(String ruteId) async {
-    final url = 'http://192.168.50.64:8000/busroutes/$ruteId';
+    final url = 'https://rhmdziz.pythonanywhere.com/busroutes/$ruteId';
 
     TokenStorage tokenStorage = TokenStorage();
     String? accessToken = await tokenStorage.getAccessToken();
@@ -117,8 +117,6 @@ class _ResultDestinyState extends State<ResultDestiny> {
         'Authorization': 'Bearer $accessToken',
       },
     );
-
-    // .get(Uri.parse('https://rhmdziz.pythonanywhere.com/busroutes/$ruteId'));
 
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -131,7 +129,8 @@ class _ResultDestinyState extends State<ResultDestiny> {
   }
 
   Future<void> fetchRuteMap() async {
-    const url = 'http://192.168.50.64:8000/busroutes/';
+    const url = 'https://rhmdziz.pythonanywhere.com/busroutes/';
+    // const url = 'http://192.168.50.64:8000/busroutes/';
 
     TokenStorage tokenStorage = TokenStorage();
     String? accessToken = await tokenStorage.getAccessToken();
@@ -143,8 +142,6 @@ class _ResultDestinyState extends State<ResultDestiny> {
           'Authorization': 'Bearer $accessToken',
         },
       );
-
-      // await http.get(Uri.parse('https://rhmdziz.pythonanywhere.com/busroutes/'));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = json.decode(response.body);
@@ -162,7 +159,8 @@ class _ResultDestinyState extends State<ResultDestiny> {
   }
 
   Future<void> fetchHalteMap() async {
-    const url = 'http://192.168.50.64:8000/haltes/';
+    const url = 'https://rhmdziz.pythonanywhere.com/haltes/';
+    // const url = 'http://192.168.50.64:8000/haltes/';
     TokenStorage tokenStorage = TokenStorage();
     String? accessToken = await tokenStorage.getAccessToken();
 
@@ -173,7 +171,6 @@ class _ResultDestinyState extends State<ResultDestiny> {
           'Authorization': 'Bearer $accessToken',
         },
       );
-      // await http.get(Uri.parse('https://rhmdziz.pythonanywhere.com/haltes/'));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = json.decode(response.body);
@@ -191,10 +188,11 @@ class _ResultDestinyState extends State<ResultDestiny> {
   }
 
   Future<List<BusSchedule>> fetchBusSchedules() async {
-    const url = 'http://192.168.50.64:8000/busscheduls/';
+    const url = 'https://rhmdziz.pythonanywhere.com/busscheduls/';
+    // const url = 'http://192.168.50.64:8000/busscheduls/';
     TokenStorage tokenStorage = TokenStorage();
     String? accessToken = await tokenStorage.getAccessToken();
-    
+
     try {
       final response = await http.get(
         Uri.parse(url),
@@ -202,7 +200,6 @@ class _ResultDestinyState extends State<ResultDestiny> {
           'Authorization': 'Bearer $accessToken',
         },
       );
-      // await http.get(Uri.parse('https://rhmdziz.pythonanywhere.com/busscheduls/'));
 
       if (response.statusCode == 200) {
         List jsonResponse = json.decode(response.body);

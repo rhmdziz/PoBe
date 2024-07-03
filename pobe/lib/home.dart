@@ -352,7 +352,7 @@ class _HomePageState extends State<HomePage> {
                                           style: TextStyle(
                                             color:
                                                 Color.fromRGBO(31, 54, 113, 1),
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             fontFamily: 'Lexend',
                                             fontWeight: FontWeight.bold,
                                           ),

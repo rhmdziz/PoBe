@@ -64,8 +64,8 @@ class _LoginState extends State<Login> {
     });
 
     var response = await http.post(
-      // Uri.parse('https://rhmdziz.pythonanywhere.com/api/token/'),
-      Uri.parse('http://192.168.50.64:8000/api/token/'),
+      // Uri.parse('http://192.168.50.64:8000/api/token/'),
+      Uri.parse('https://rhmdziz.pythonanywhere.com/api/token/'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -110,7 +110,8 @@ class _LoginState extends State<Login> {
 
   Future<void> _fetchUserId(String accessToken) async {
     try {
-      var usersUrl = Uri.parse('http://192.168.50.64:8000/users/');
+      var usersUrl = Uri.parse('https://rhmdziz.pythonanywhere.com/users/');
+      // var usersUrl = Uri.parse('http://192.168.50.64:8000/users/');
       var response = await http.get(
         usersUrl,
         headers: {

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -73,7 +73,7 @@ class _ToGoDetailPageState extends State<ToGoDetailPage> {
       throw Exception('Access token not found');
     }
 
-    const url = 'http://192.168.50.64:8000/foodreviews/';
+    const url = 'https://rhmdziz.pythonanywhere.com/foodreviews/';
 
     final response = await http.get(
       Uri.parse(url),
@@ -572,7 +572,7 @@ class _ToGoDetailPageState extends State<ToGoDetailPage> {
                         print("Request Data: $requestData");
 
                         final response = await http.post(
-                          Uri.parse('http://192.168.50.64:8000/foodreviews/'),
+                          Uri.parse('https://rhmdziz.pythonanywhere.com/foodreviews/'),
                           headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer $accessToken',

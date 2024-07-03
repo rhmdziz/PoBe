@@ -69,7 +69,8 @@ class _NewsListPageState extends State<NewsListPage> {
   }
 
   Future<List<News>> fetchNews() async {
-    const url = 'http://192.168.50.64:8000/newss/';
+    const url = 'https://rhmdziz.pythonanywhere.com/newss/';
+    // const url = 'http://192.168.50.64:8000/newss/';
 
     TokenStorage tokenStorage = TokenStorage();
     String? accessToken = await tokenStorage.getAccessToken();
@@ -85,7 +86,6 @@ class _NewsListPageState extends State<NewsListPage> {
       },
     );
 
-    // await http.get(Uri.parse('https://rhmdziz.pythonanywhere.com/newss/'));
 
     print(response.statusCode);
     print(response.body);

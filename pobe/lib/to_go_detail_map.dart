@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_final_fields, avoid_function_literals_in_foreach_calls
+
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -87,7 +89,7 @@ class _DirectionsPageState extends State<DirectionsPage> {
 
       setState(() {
         _polylines.add(Polyline(
-          polylineId: PolylineId('route1'),
+          polylineId: const PolylineId('route1'),
           color: Colors.blue,
           width: 4,
           points: polylineCoordinates,
