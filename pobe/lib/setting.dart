@@ -140,7 +140,7 @@ class SettingPage extends StatelessWidget {
                   );
                 },
                 style: const ButtonStyle(
-                    padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+                    padding: WidgetStatePropertyAll(EdgeInsets.zero)),
                 child: Row(
                   children: [
                     Image.asset('assets/setting/terms.png'),

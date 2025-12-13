@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 from rest_framework import generics, status, permissions
@@ -31,10 +31,26 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+# Swagger / OpenAPI (drf-yasg)
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions as drf_permissions
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="PoBe API",
+        default_version='v1',
+        description="PoBe backend API documentation",
+    ),
+    public=True,
+    permission_classes=(drf_permissions.AllowAny,),
+)
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ['url', 'username', 'email', 'is_staff']
+        ref_name = 'UserSerializer_URLs'
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -240,6 +256,11 @@ urlpatterns = [
     path('api/users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # Swagger/OpenAPI endpoints
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 
 if settings.DEBUG:

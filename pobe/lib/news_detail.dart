@@ -278,11 +278,11 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                         _showAddCommentModal(context);
                       },
                       style: ButtonStyle(
-                        backgroundColor: const MaterialStatePropertyAll(
+                        backgroundColor: const WidgetStatePropertyAll(
                             Color.fromRGBO(31, 54, 113, 1)),
-                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                        minimumSize: const MaterialStatePropertyAll(
+                        minimumSize: const WidgetStatePropertyAll(
                             Size(double.infinity, 50)),
                       ),
                       child: const Text(
@@ -525,12 +525,12 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                       }
                     : null,
                 style: ButtonStyle(
-                  backgroundColor: const MaterialStatePropertyAll(
+                  backgroundColor: const WidgetStatePropertyAll(
                       Color.fromRGBO(31, 54, 113, 1)),
-                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                  shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),
                   minimumSize:
-                      const MaterialStatePropertyAll(Size(double.infinity, 50)),
+                      const WidgetStatePropertyAll(Size(double.infinity, 50)),
                 ),
                 child: _isLoading
                     ? const CircularProgressIndicator(

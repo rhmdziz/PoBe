@@ -229,12 +229,12 @@ class _RegistState extends State<Regist> {
               TextButton(
                 onPressed: _isLoading ? null : _registerUser,
                 style: ButtonStyle(
-                  backgroundColor: const MaterialStatePropertyAll(
+                  backgroundColor: const WidgetStatePropertyAll(
                       Color.fromRGBO(31, 54, 113, 1)),
-                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                  shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),
                   minimumSize:
-                      const MaterialStatePropertyAll(Size(double.infinity, 50)),
+                      const WidgetStatePropertyAll(Size(double.infinity, 50)),
                 ),
                 child: _isLoading
                     ? const CircularProgressIndicator(
@@ -279,11 +279,11 @@ class _RegistState extends State<Regist> {
               ElevatedButton(
                 onPressed: null,
                 style: ButtonStyle(
-                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                    shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))),
-                    minimumSize: const MaterialStatePropertyAll(
-                        Size(double.infinity, 50)),
-                    backgroundColor: const MaterialStatePropertyAll(
+                    minimumSize:
+                        const WidgetStatePropertyAll(Size(double.infinity, 50)),
+                    backgroundColor: const WidgetStatePropertyAll(
                         Color.fromRGBO(0, 0, 0, 0.09))),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

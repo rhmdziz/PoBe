@@ -259,11 +259,11 @@ class _ToGoDetailPageState extends State<ToGoDetailPage> {
                         _showAddReviewModal(context);
                       },
                       style: ButtonStyle(
-                        backgroundColor: const MaterialStatePropertyAll(
+                        backgroundColor: const WidgetStatePropertyAll(
                             Color.fromRGBO(209, 235, 254, 1)),
-                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                        minimumSize: const MaterialStatePropertyAll(
+                        minimumSize: const WidgetStatePropertyAll(
                             Size(double.infinity, 50)),
                       ),
                       child: const Text(
@@ -295,11 +295,11 @@ class _ToGoDetailPageState extends State<ToGoDetailPage> {
                         }
                       },
                       style: ButtonStyle(
-                        backgroundColor: const MaterialStatePropertyAll(
+                        backgroundColor: const WidgetStatePropertyAll(
                             Color.fromRGBO(31, 54, 113, 1)),
-                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                        minimumSize: const MaterialStatePropertyAll(
+                        minimumSize: const WidgetStatePropertyAll(
                             Size(double.infinity, 50)),
                       ),
                       child: const Text(
@@ -572,7 +572,8 @@ class _ToGoDetailPageState extends State<ToGoDetailPage> {
                         print("Request Data: $requestData");
 
                         final response = await http.post(
-                          Uri.parse('https://rhmdziz.pythonanywhere.com/foodreviews/'),
+                          Uri.parse(
+                              'https://rhmdziz.pythonanywhere.com/foodreviews/'),
                           headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer $accessToken',
@@ -606,12 +607,12 @@ class _ToGoDetailPageState extends State<ToGoDetailPage> {
                       }
                     : null,
                 style: ButtonStyle(
-                  backgroundColor: const MaterialStatePropertyAll(
+                  backgroundColor: const WidgetStatePropertyAll(
                       Color.fromRGBO(31, 54, 113, 1)),
-                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                  shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),
                   minimumSize:
-                      const MaterialStatePropertyAll(Size(double.infinity, 50)),
+                      const WidgetStatePropertyAll(Size(double.infinity, 50)),
                 ),
                 child: _isLoading
                     ? const CircularProgressIndicator(

@@ -169,7 +169,7 @@ class HelpPage extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: TextButton(
                       style: const ButtonStyle(
-                          padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+                          padding: WidgetStatePropertyAll(EdgeInsets.zero)),
                       onPressed: () {
                         Navigator.push(
                           context,

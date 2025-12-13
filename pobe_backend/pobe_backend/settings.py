@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'drf',
     'rest_framework',
+    'drf_yasg',
     'rest_framework.authtoken',
     'corsheaders',
     'django_ckeditor_5',
